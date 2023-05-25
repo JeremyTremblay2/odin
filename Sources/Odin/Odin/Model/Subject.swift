@@ -11,20 +11,20 @@ struct Subject : Identifiable, Hashable, CustomStringConvertible {
     public let id: UUID
     public private (set) var titleName: String
     public private (set) var coefficient: String
-    public private (set) var average: Float
+    public private (set) var average: Float?
     
     public var description: String {
-        "[\(id)] \(titleName) - \(average) [Coeff: \(coefficient)]\n"
+        "[\(id)] \(titleName) - \(average != nil ? String(average!) : "No notes") [Coeff: \(coefficient)]\n"
     }
     
-    public init(withId id: UUID, andName titleName: String, andCoeff coefficient: String, andAverage average: Float) {
+    public init(withId id: UUID, andName titleName: String, andCoeff coefficient: String, andAverage average: Float? = nil) {
         self.id = id
         self.titleName = titleName
         self.coefficient = coefficient
         self.average = average
     }
     
-    public init(andName titleName: String, andCoeff coefficient: String, andAverage average: Float) {
+    public init(withName titleName: String, andCoeff coefficient: String, andAverage average: Float? = nil) {
         self.id = UUID()
         self.titleName = titleName
         self.coefficient = coefficient

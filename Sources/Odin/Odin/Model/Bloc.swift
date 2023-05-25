@@ -12,14 +12,19 @@ struct Bloc : Identifiable, Hashable, CustomStringConvertible {
     public private (set) var titleName: String
     public private (set) var teachingUnits: [TeachingUnit]
     
-    public var average: Float {
+    public var average: Float? {
         let totalCoefficient = teachingUnits.reduce(0.0) { $0 + $1.coefficient }
-        let weightedGrades = teachingUnits.reduce(0.0) { $0 + $1.average * $1.coefficient }
-        return weightedGrades / totalCoefficient
+        let weightedGrades = teachingUnits.reduce(0.0) { $0 + ($1.average ?? 0.0) * $1.coefficient }
+        
+        if totalCoefficient > 0.0 {
+            return weightedGrades / totalCoefficient
+        } else {
+            return nil
+        }
     }
     
     public var description: String {
-        "[\(id)] \(titleName) - \(average)\n"
+        "[\(id)] \(titleName) - \(average != nil ? String(average!) : "No notes")\n"
     }
     
     public init(withId id: UUID, andTitle titleName: String, andTeachingUnits teachingUnits: [TeachingUnit]) {
@@ -28,7 +33,7 @@ struct Bloc : Identifiable, Hashable, CustomStringConvertible {
         self.teachingUnits = teachingUnits
     }
     
-    public init(andTitle titleName: String, andTeachingUnits teachingUnits: [TeachingUnit]) {
+    public init(withTitle titleName: String, andTeachingUnits teachingUnits: [TeachingUnit]) {
         id = UUID()
         self.titleName = titleName
         self.teachingUnits = teachingUnits

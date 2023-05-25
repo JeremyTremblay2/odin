@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC4C9B7F2A1FF15B00C38C66 /* Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4C9B7E2A1FF15B00C38C66 /* Stub.swift */; };
 		ECFF19832A1F9F5100120D8D /* OdinApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFF19822A1F9F5100120D8D /* OdinApp.swift */; };
 		ECFF19852A1F9F5100120D8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFF19842A1F9F5100120D8D /* ContentView.swift */; };
 		ECFF19872A1F9F5100120D8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECFF19862A1F9F5100120D8D /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC4C9B7E2A1FF15B00C38C66 /* Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
 		ECFF197F2A1F9F5100120D8D /* Odin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Odin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECFF19822A1F9F5100120D8D /* OdinApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdinApp.swift; sourceTree = "<group>"; };
 		ECFF19842A1F9F5100120D8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				ECFF19AF2A1FA22700120D8D /* TeachingUnit.swift */,
 				ECFF19B12A1FA74500120D8D /* Odin.swift */,
 				ECFF19B32A1FA78800120D8D /* Bloc.swift */,
+				EC4C9B7E2A1FF15B00C38C66 /* Stub.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				ECFF19B42A1FA78800120D8D /* Bloc.swift in Sources */,
 				ECFF19AE2A1FA16400120D8D /* Subject.swift in Sources */,
 				ECFF19832A1F9F5100120D8D /* OdinApp.swift in Sources */,
+				EC4C9B7F2A1FF15B00C38C66 /* Stub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

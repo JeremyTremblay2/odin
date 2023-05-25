@@ -30,7 +30,7 @@ struct Odin : Identifiable, Hashable, CustomStringConvertible {
         self.teachingUnits = teachingUnits
     }
     
-    public init(andBlocs blocs: [Bloc], andUnits teachingUnits: [TeachingUnit]) {
+    public init(withBlocs blocs: [Bloc], andUnits teachingUnits: [TeachingUnit]) {
         id = UUID()
         self.blocs = blocs
         self.teachingUnits = teachingUnits

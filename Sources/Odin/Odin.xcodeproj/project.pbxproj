@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		EC4C9B7F2A1FF15B00C38C66 /* Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4C9B7E2A1FF15B00C38C66 /* Stub.swift */; };
+		EC4C9B822A1FFC6300C38C66 /* CapsuleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4C9B812A1FFC6300C38C66 /* CapsuleSlider.swift */; };
+		EC4C9B842A20000100C38C66 /* DragState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4C9B832A20000100C38C66 /* DragState.swift */; };
 		ECFF19832A1F9F5100120D8D /* OdinApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFF19822A1F9F5100120D8D /* OdinApp.swift */; };
 		ECFF19852A1F9F5100120D8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFF19842A1F9F5100120D8D /* ContentView.swift */; };
 		ECFF19872A1F9F5100120D8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECFF19862A1F9F5100120D8D /* Assets.xcassets */; };
@@ -40,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		EC4C9B7E2A1FF15B00C38C66 /* Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
+		EC4C9B812A1FFC6300C38C66 /* CapsuleSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleSlider.swift; sourceTree = "<group>"; };
+		EC4C9B832A20000100C38C66 /* DragState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragState.swift; sourceTree = "<group>"; };
 		ECFF197F2A1F9F5100120D8D /* Odin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Odin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECFF19822A1F9F5100120D8D /* OdinApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdinApp.swift; sourceTree = "<group>"; };
 		ECFF19842A1F9F5100120D8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -81,9 +85,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC4C9B802A1FFC4700C38C66 /* CustomControls */ = {
+			isa = PBXGroup;
+			children = (
+				EC4C9B812A1FFC6300C38C66 /* CapsuleSlider.swift */,
+				EC4C9B832A20000100C38C66 /* DragState.swift */,
+			);
+			path = CustomControls;
+			sourceTree = "<group>";
+		};
 		EC9A7C972A1FB6270080C2E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EC4C9B802A1FFC4700C38C66 /* CustomControls */,
 				ECFF19842A1F9F5100120D8D /* ContentView.swift */,
 			);
 			path = Views;
@@ -292,8 +306,10 @@
 				ECFF19B02A1FA22700120D8D /* TeachingUnit.swift in Sources */,
 				ECFF19852A1F9F5100120D8D /* ContentView.swift in Sources */,
 				ECFF19B42A1FA78800120D8D /* Bloc.swift in Sources */,
+				EC4C9B842A20000100C38C66 /* DragState.swift in Sources */,
 				ECFF19AE2A1FA16400120D8D /* Subject.swift in Sources */,
 				ECFF19832A1F9F5100120D8D /* OdinApp.swift in Sources */,
+				EC4C9B822A1FFC6300C38C66 /* CapsuleSlider.swift in Sources */,
 				EC4C9B7F2A1FF15B00C38C66 /* Stub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

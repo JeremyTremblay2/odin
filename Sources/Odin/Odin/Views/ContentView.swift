@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var average: Float = 20
     var body: some View {
         VStack {
-            Text("Calculette")
+            Text("Calculette \(average)")
+            CapsuleSlider(average: $average, minValue: 10, maxValue: 30, height: 20)
+                .padding(.horizontal, 40)
         }
         .navigationTitle("Calculette")
     }

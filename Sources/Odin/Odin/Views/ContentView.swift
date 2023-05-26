@@ -12,7 +12,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text("Calculette \(average)")
-            CapsuleSlider(average: $average, minValue: 10, maxValue: 30, height: 20)
+            CapsuleSlider(average: $average, minValue: 0, maxValue: 20, height: 20)
                 .padding(.horizontal, 40)
         }
         .navigationTitle("Calculette")

@@ -31,7 +31,7 @@ public struct TeachingUnitsView: View {
                 ForEach($odinVM.teachingUnits) { $teachingUnit in
                     HStack(alignment: .center, spacing: 0) {
                         TeachingUnitWithLineView(teachingUnit: TeachingUnitVM(withTeachingUnit: teachingUnit))
-                        NavigationLink(destination: TeachingUnitView(teachingUnit: TeachingUnitVM(withTeachingUnit: teachingUnit))) {
+                        NavigationLink(destination: TeachingUnitDetailView(teachingUnit: TeachingUnitVM(withTeachingUnit: teachingUnit))) {
                             Image(systemName: "square.and.pencil")
                                 .padding(.leading, 8)
                                 .padding(.trailing, 16)

@@ -9,18 +9,18 @@ import Foundation
 import SwiftUI
 
 public struct NoteDetailView: View {
-    //var subject: Subject
-    @State private var average: Float = 0
+    @ObservedObject var subject: SubjectVM
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
-                Text("UE Génie Logiciel")
+                Text(subject.model.titleName)
                 Spacer()
-                Text("6")
+                Text(String(subject.model.coefficient))
             }
             .padding(16)
-            CapsuleSlider(average: $average, minValue: 0, maxValue: 20, backgroundColor: .clear, foregroundColor: .green)
+            CapsuleSlider(average: $subject.model.average, valueToChangeColor: 10, minValue: 0, maxValue: 20,
+                          backgroundColor: .clear, foregroundColor: .red, otherForegroundColor: .green)
                 .padding(.horizontal, 16)
         }
         .padding(.trailing, 16)

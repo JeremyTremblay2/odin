@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC4BA4CF2A20D63F00BF0EF7 /* NoteDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4BA4CE2A20D63F00BF0EF7 /* NoteDetailsView.swift */; };
+		EC4BA4D72A20D98B00BF0EF7 /* SubjectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4BA4D62A20D98B00BF0EF7 /* SubjectVM.swift */; };
+		EC4BA4DA2A20DA0000BF0EF7 /* Model in Frameworks */ = {isa = PBXBuildFile; productRef = EC4BA4D92A20DA0000BF0EF7 /* Model */; };
+		EC4BA4DC2A20DFB400BF0EF7 /* TeachingUnitVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4BA4DB2A20DFB400BF0EF7 /* TeachingUnitVM.swift */; };
 		EC4C9B822A1FFC6300C38C66 /* CapsuleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4C9B812A1FFC6300C38C66 /* CapsuleSlider.swift */; };
 		ECFF19832A1F9F5100120D8D /* OdinApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFF19822A1F9F5100120D8D /* OdinApp.swift */; };
 		ECFF19852A1F9F5100120D8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFF19842A1F9F5100120D8D /* ContentView.swift */; };
@@ -35,8 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC4BA4CE2A20D63F00BF0EF7 /* NoteDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteDetailsView.swift; sourceTree = "<group>"; };
+		EC4BA4D62A20D98B00BF0EF7 /* SubjectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectVM.swift; sourceTree = "<group>"; };
+		EC4BA4DB2A20DFB400BF0EF7 /* TeachingUnitVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachingUnitVM.swift; sourceTree = "<group>"; };
 		EC4C9B812A1FFC6300C38C66 /* CapsuleSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleSlider.swift; sourceTree = "<group>"; };
-		ECC2803E2A209F5B008630D6 /* Model */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Model; path = ../Model; sourceTree = "<group>"; };
 		ECFF197F2A1F9F5100120D8D /* Odin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Odin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECFF19822A1F9F5100120D8D /* OdinApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdinApp.swift; sourceTree = "<group>"; };
 		ECFF19842A1F9F5100120D8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC4BA4DA2A20DA0000BF0EF7 /* Model in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,9 +81,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EC4BA4D32A20D7D500BF0EF7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				EC4BA4D62A20D98B00BF0EF7 /* SubjectVM.swift */,
+				EC4BA4DB2A20DFB400BF0EF7 /* TeachingUnitVM.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		EC4BA4D82A20DA0000BF0EF7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EC4C9B802A1FFC4700C38C66 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
+				EC4BA4CE2A20D63F00BF0EF7 /* NoteDetailsView.swift */,
 				EC4C9B812A1FFC6300C38C66 /* CapsuleSlider.swift */,
 			);
 			path = CustomControls;
@@ -94,11 +118,11 @@
 		ECFF19762A1F9F5100120D8D = {
 			isa = PBXGroup;
 			children = (
-				ECC2803E2A209F5B008630D6 /* Model */,
 				ECFF19812A1F9F5100120D8D /* Odin */,
 				ECFF19922A1F9F5100120D8D /* OdinTests */,
 				ECFF199C2A1F9F5100120D8D /* OdinUITests */,
 				ECFF19802A1F9F5100120D8D /* Products */,
+				EC4BA4D82A20DA0000BF0EF7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +139,7 @@
 		ECFF19812A1F9F5100120D8D /* Odin */ = {
 			isa = PBXGroup;
 			children = (
+				EC4BA4D32A20D7D500BF0EF7 /* ViewModels */,
 				EC9A7C972A1FB6270080C2E3 /* Views */,
 				ECFF19822A1F9F5100120D8D /* OdinApp.swift */,
 				ECFF19862A1F9F5100120D8D /* Assets.xcassets */,
@@ -164,6 +189,9 @@
 			dependencies = (
 			);
 			name = Odin;
+			packageProductDependencies = (
+				EC4BA4D92A20DA0000BF0EF7 /* Model */,
+			);
 			productName = Odin;
 			productReference = ECFF197F2A1F9F5100120D8D /* Odin.app */;
 			productType = "com.apple.product-type.application";
@@ -279,8 +307,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECFF19852A1F9F5100120D8D /* ContentView.swift in Sources */,
+				EC4BA4D72A20D98B00BF0EF7 /* SubjectVM.swift in Sources */,
 				ECFF19832A1F9F5100120D8D /* OdinApp.swift in Sources */,
 				EC4C9B822A1FFC6300C38C66 /* CapsuleSlider.swift in Sources */,
+				EC4BA4CF2A20D63F00BF0EF7 /* NoteDetailsView.swift in Sources */,
+				EC4BA4DC2A20DFB400BF0EF7 /* TeachingUnitVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +630,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EC4BA4D92A20DA0000BF0EF7 /* Model */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Model;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ECFF19772A1F9F5100120D8D /* Project object */;
 }

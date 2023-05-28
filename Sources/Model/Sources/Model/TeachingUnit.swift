@@ -15,8 +15,8 @@ public struct TeachingUnit: Identifiable, Hashable, CustomStringConvertible {
     public var subjects: [Subject]
     
     public var average: Float? {
-        let totalCoefficient = subjects.reduce(0.0) { $0 + $1.coefficient }
-        let weightedGrades = subjects.reduce(0.0) { $0 + ($1.average ?? 0.0) * $1.coefficient }
+        let totalCoefficient = subjects.reduce(0.0) { $0 + ($1.average == nil ? 0.0 : $1.coefficient) }
+        let weightedGrades = subjects.reduce(0.0) { $0 + ($1.average ?? 0.0) * ($1.average != nil ? $1.coefficient : 0.0) }
         
         if totalCoefficient > 0.0 {
             return weightedGrades / totalCoefficient

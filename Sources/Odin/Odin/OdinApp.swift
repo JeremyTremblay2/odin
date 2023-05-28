@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import Model
 
 @main
 struct OdinApp: App {
+    @StateObject
+    var odinVM: OdinVM = OdinVM(withTeachingUnits: generateOdin().teachingUnits, withBlocs: generateOdin().blocs)
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CalculatorView(odinVM: odinVM)
         }
     }
 }

@@ -16,11 +16,11 @@ struct CapsuleSliderView: View {
     var height: CGFloat = 20
     
     private var capsuleColor: Color {
-        average ?? minValue < valueToChangeColor ? foregroundColor : otherForegroundColor
+        average == nil ? otherForegroundColor : (average! < valueToChangeColor ? foregroundColor : otherForegroundColor)
     }
     
     private var textValue: String {
-        average == nil ? "" : String(format: "%.2f", average!)
+        average == nil ? "Aucune note" : String(format: "%.2f", average!)
     }
     
     var body: some View {
@@ -78,6 +78,7 @@ struct CapsuleSliderView: View {
 
 struct CapsuleSliderView_Previews: PreviewProvider {
     static var previews: some View {
-        BlocView(bloc: generateOdin().blocs.first!)
+        CapsuleSliderView(average: .constant(15.33), valueToChangeColor: 8, minValue: 0, maxValue: 20,
+                          backgroundColor: .clear, foregroundColor: .red, otherForegroundColor: .green)
     }
 }

@@ -28,10 +28,10 @@ public struct TeachingUnitsView: View {
                 Text("Détail des UEs.")
                     .padding(.bottom, 20)
                 
-                ForEach($odinVM.teachingUnits) { $teachingUnit in
+                ForEach(odinVM.teachingUnits) { unit in
                     HStack(alignment: .center, spacing: 0) {
-                        TeachingUnitWithLineView(teachingUnit: TeachingUnitVM(withTeachingUnit: teachingUnit))
-                        NavigationLink(destination: TeachingUnitDetailView(teachingUnit: TeachingUnitVM(withTeachingUnit: teachingUnit))) {
+                        TeachingUnitWithLineView(teachingUnit: TeachingUnitVM(withTeachingUnit: unit))
+                        NavigationLink(destination: TeachingUnitDetailView(odinVM: odinVM, teachingUnitVM: TeachingUnitVM(withTeachingUnit: unit))) {
                             Image(systemName: "square.and.pencil")
                                 .padding(.leading, 8)
                                 .padding(.trailing, 16)

@@ -16,14 +16,13 @@ public struct TeachingUnitWithLineView: View {
         VStack(spacing: 0) {
             TeachingUnitView(teachingUnit: teachingUnit)
             Divider()
-                .frame(height: 1)
-                .overlay(.gray)
-                .padding(.top, 12)
+                .frame(height: 2)
+                .padding(.top, 16)
         }
     }
 }
 struct TeachingUnitWithLineView_Previews: PreviewProvider {
     static var previews: some View {
-        TeachingUnitWithLineView(teachingUnit: TeachingUnitVM(withTeachingUnit: generateOdin().teachingUnits.first!))
+        TeachingUnitView(teachingUnit: TeachingUnitVM(withTeachingUnit: generateOdin().teachingUnits.first!))
     }
 }

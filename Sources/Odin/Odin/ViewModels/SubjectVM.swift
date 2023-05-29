@@ -11,9 +11,9 @@ import Model
 extension Subject {
     struct Data: Identifiable {
         public let id: UUID
-        public private (set) var titleName: String
-        public private (set) var coefficient: Float
-        public private (set) var average: Float?
+        public var titleName: String
+        public var coefficient: Float
+        public var average: Float?
     }
     
     var data: Data { Data(id: self.id, titleName: self.titleName, coefficient: self.coefficient, average: self.average) }
@@ -31,7 +31,7 @@ extension Subject {
 class SubjectVM : ObservableObject {
     var original: Subject
     
-    @Published var model: Subject.Data = Subject.Data(id: UUID(), titleName: "", coefficient: 1)
+    @Published var model: Subject.Data = Subject.Data(id: UUID(), titleName: "", coefficient: 1, average: nil)
     @Published var isEdited = false
     
     init(withSubject subject: Subject) {
@@ -41,7 +41,7 @@ class SubjectVM : ObservableObject {
     
     func onEditing() {
         model = original.data
-        isEdited = false
+        isEdited = true
     }
     
     func onEdited(isCancelled cancelled: Bool = false) {

@@ -22,6 +22,8 @@
 		ECA414A82A238F4D0044FED8 /* TeachingUnitGlobalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA414A72A238F4D0044FED8 /* TeachingUnitGlobalDetailView.swift */; };
 		ECA414AA2A2393E30044FED8 /* TeachingUnitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA414A92A2393E30044FED8 /* TeachingUnitDetailView.swift */; };
 		ECA414AC2A23960D0044FED8 /* SubjectViewWithLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA414AB2A23960D0044FED8 /* SubjectViewWithLine.swift */; };
+		ECA414AE2A23A2690044FED8 /* EditTeachingUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA414AD2A23A2690044FED8 /* EditTeachingUnitView.swift */; };
+		ECA414B02A253FF90044FED8 /* BlocVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA414AF2A253FF90044FED8 /* BlocVM.swift */; };
 		ECFF19832A1F9F5100120D8D /* OdinApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFF19822A1F9F5100120D8D /* OdinApp.swift */; };
 		ECFF19852A1F9F5100120D8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFF19842A1F9F5100120D8D /* ContentView.swift */; };
 		ECFF19872A1F9F5100120D8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECFF19862A1F9F5100120D8D /* Assets.xcassets */; };
@@ -63,6 +65,8 @@
 		ECA414A72A238F4D0044FED8 /* TeachingUnitGlobalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachingUnitGlobalDetailView.swift; sourceTree = "<group>"; };
 		ECA414A92A2393E30044FED8 /* TeachingUnitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachingUnitDetailView.swift; sourceTree = "<group>"; };
 		ECA414AB2A23960D0044FED8 /* SubjectViewWithLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectViewWithLine.swift; sourceTree = "<group>"; };
+		ECA414AD2A23A2690044FED8 /* EditTeachingUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTeachingUnitView.swift; sourceTree = "<group>"; };
+		ECA414AF2A253FF90044FED8 /* BlocVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocVM.swift; sourceTree = "<group>"; };
 		ECFF197F2A1F9F5100120D8D /* Odin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Odin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECFF19822A1F9F5100120D8D /* OdinApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdinApp.swift; sourceTree = "<group>"; };
 		ECFF19842A1F9F5100120D8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 				EC4BA4D62A20D98B00BF0EF7 /* SubjectVM.swift */,
 				EC4BA4DB2A20DFB400BF0EF7 /* TeachingUnitVM.swift */,
 				ECA414972A2354DE0044FED8 /* OdinVM.swift */,
+				ECA414AF2A253FF90044FED8 /* BlocVM.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -135,6 +140,7 @@
 				ECFF19842A1F9F5100120D8D /* ContentView.swift */,
 				ECA4149B2A235DD50044FED8 /* CalculatorView.swift */,
 				ECA414A92A2393E30044FED8 /* TeachingUnitDetailView.swift */,
+				ECA414AD2A23A2690044FED8 /* EditTeachingUnitView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -370,6 +376,7 @@
 			files = (
 				ECA4149E2A2368520044FED8 /* BlocsView.swift in Sources */,
 				ECFF19852A1F9F5100120D8D /* ContentView.swift in Sources */,
+				ECA414B02A253FF90044FED8 /* BlocVM.swift in Sources */,
 				EC4BA4D72A20D98B00BF0EF7 /* SubjectVM.swift in Sources */,
 				ECA414AC2A23960D0044FED8 /* SubjectViewWithLine.swift in Sources */,
 				ECFF19832A1F9F5100120D8D /* OdinApp.swift in Sources */,
@@ -380,6 +387,7 @@
 				ECA414A02A236C180044FED8 /* TeachingUnitsView.swift in Sources */,
 				ECA414AA2A2393E30044FED8 /* TeachingUnitDetailView.swift in Sources */,
 				ECA4149C2A235DD50044FED8 /* CalculatorView.swift in Sources */,
+				ECA414AE2A23A2690044FED8 /* EditTeachingUnitView.swift in Sources */,
 				ECA4149A2A235DBD0044FED8 /* TeachingUnitView.swift in Sources */,
 				EC4BA4CF2A20D63F00BF0EF7 /* SubjectView.swift in Sources */,
 				EC4BA4DC2A20DFB400BF0EF7 /* TeachingUnitVM.swift in Sources */,

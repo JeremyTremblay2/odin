@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Bloc : Identifiable, Hashable, CustomStringConvertible {
+public struct Bloc : Identifiable, Hashable, CustomStringConvertible {
     public let id: UUID
-    public private (set) var titleName: String
-    public private (set) var teachingUnits: [TeachingUnit]
+    public var titleName: String
+    public var teachingUnits: [TeachingUnit]
     
     public var average: Float? {
-        let totalCoefficient = teachingUnits.reduce(0.0) { $0 + $1.coefficient }
-        let weightedGrades = teachingUnits.reduce(0.0) { $0 + ($1.average ?? 0.0) * $1.coefficient }
+        let totalCoefficient = teachingUnits.reduce(0.0) { $0 + ($1.average == nil ? 0.0 : $1.coefficient) }
+        let weightedGrades = teachingUnits.reduce(0.0) { $0 + ($1.average ?? 0.0) * ($1.average != nil ? $1.coefficient : 0.0) }
         
         if totalCoefficient > 0.0 {
             return weightedGrades / totalCoefficient

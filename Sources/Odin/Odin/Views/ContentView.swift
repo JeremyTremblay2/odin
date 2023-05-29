@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Model
 
 struct ContentView: View {
+    var odinVM: OdinVM = OdinVM(withTeachingUnits: generateOdin().teachingUnits, withBlocs: generateOdin().blocs)
+    
     var body: some View {
         VStack {
-            Text("Calculette")
+            CalculatorView(odinVM: odinVM)
         }
         .navigationTitle("Calculette")
     }

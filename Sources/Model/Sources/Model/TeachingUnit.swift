@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct TeachingUnit: Identifiable, Hashable, CustomStringConvertible {
+public struct TeachingUnit: Identifiable, Hashable, CustomStringConvertible {
     public let id: UUID
-    public private (set) var titleName: String
-    public private (set) var unitNumber: Int
-    public private (set) var coefficient: Float
-    public private (set) var subjects: [Subject]
+    public var titleName: String
+    public var unitNumber: Int
+    public var coefficient: Float
+    public var subjects: [Subject]
     
     public var average: Float? {
-        let totalCoefficient = subjects.reduce(0.0) { $0 + Float($1.coefficient)! }
-        let weightedGrades = subjects.reduce(0.0) { $0 + ($1.average ?? 0.0) * Float($1.coefficient)! }
+        let totalCoefficient = subjects.reduce(0.0) { $0 + ($1.average == nil ? 0.0 : $1.coefficient) }
+        let weightedGrades = subjects.reduce(0.0) { $0 + ($1.average ?? 0.0) * ($1.average != nil ? $1.coefficient : 0.0) }
         
         if totalCoefficient > 0.0 {
             return weightedGrades / totalCoefficient

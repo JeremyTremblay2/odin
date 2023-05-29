@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Odin/../Model">
+   </FileRef>
+   <FileRef
       location = "group:Odin/Odin.xcodeproj">
    </FileRef>
 </Workspace>

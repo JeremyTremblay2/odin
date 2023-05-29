@@ -9,12 +9,12 @@ import Foundation
 import SwiftUI
 import Model
 
-public struct SubjectWithLineView: View {
-    @ObservedObject var subject: SubjectVM
+public struct ViewWithLineView<Content: View>: View {
+    var view: Content
     
     public var body: some View {
         VStack(spacing: 0) {
-            SubjectView(subject: subject)
+            view
             Divider()
                 .frame(height: 1)
                 .overlay(.gray)
@@ -22,8 +22,8 @@ public struct SubjectWithLineView: View {
         }
     }
 }
-struct SubjectWithLineView_Previews: PreviewProvider {
+struct ViewWithLineView_Previews: PreviewProvider {
     static var previews: some View {
-        SubjectWithLineView(subject: SubjectVM(withSubject: generateOdin().teachingUnits.first!.subjects.first!))
+        ViewWithLineView(view: Text("toto"))
     }
 }

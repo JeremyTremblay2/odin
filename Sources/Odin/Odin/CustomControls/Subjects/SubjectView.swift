@@ -13,15 +13,19 @@ public struct SubjectView: View {
     @ObservedObject var subject: SubjectVM
     var fieldsEditable: Bool = false
     
+    private var areFielsEditables: Bool {
+        !(subject.isEdited && fieldsEditable)
+    }
+    
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
                 TextField("Nom de la matière", text: $subject.model.titleName)
                     .padding(.leading, 24)
-                    .disabled(!subject.isEdited && !fieldsEditable)
+                    .disabled(areFielsEditables)
                 Spacer()
                 TextField("Coeff", value: $subject.model.coefficient, formatter: NumberFormatter())
-                    .disabled(!subject.isEdited && !fieldsEditable)
+                    .disabled(areFielsEditables)
                     .frame(width: 36)
             }
             .padding(.bottom, 16)

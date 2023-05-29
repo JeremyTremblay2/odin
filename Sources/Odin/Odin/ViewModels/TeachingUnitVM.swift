@@ -39,7 +39,7 @@ extension TeachingUnit {
         self.titleName = data.titleName
         self.unitNumber = data.unitNumber
         self.coefficient = data.coefficient
-        self.subjects = data.subjects.map{ Subject(withId: $0.id, andName: $0.titleName, andCoeff: $0.coefficient)}
+        self.subjects = data.subjects.map{ Subject(withId: $0.id, andName: $0.titleName, andCoeff: $0.coefficient, andAverage: $0.average)}
     }
 }
 

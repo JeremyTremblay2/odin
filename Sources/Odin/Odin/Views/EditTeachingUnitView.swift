@@ -26,7 +26,7 @@ public struct EditTeachingUnitView: View {
                     .padding(16)
                     
                     
-                    TeachingUnitWithLineView(teachingUnit: teachingUnitVM)
+                    ViewWithLineView(view: TeachingUnitView(teachingUnit: teachingUnitVM))
                      .padding(16)
                      .padding(.leading, 34)
                     
@@ -56,7 +56,7 @@ public struct EditTeachingUnitView: View {
                             .padding(.leading, 16)
                             .padding(.trailing, 24)
                             
-                            SubjectWithLineView(subject: subjectVM)
+                            ViewWithLineView(view: SubjectView(subject: subjectVM, fieldsEditable: true))
                         }
                         .onAppear() {
                             subjectVM.onEditing()

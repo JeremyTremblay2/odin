@@ -13,15 +13,16 @@ public struct TeachingUnitDetailView: View {
     @ObservedObject var odinVM: OdinVM
     @ObservedObject var teachingUnitVM: TeachingUnitVM
     
+    var navigationTitle: String {
+        "UE\(teachingUnitVM.model.unitNumber) : \(teachingUnitVM.model.titleName)"
+    }
+    
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                Text("UE\(teachingUnitVM.model.unitNumber) : \(teachingUnitVM.model.titleName)")
-                    .font(.largeTitle)
-                    .bold()
-                    .padding(16)
                 
-                TeachingUnitWithLineView(teachingUnit: teachingUnitVM)
+                
+                ViewWithLineView(view: TeachingUnitView(teachingUnit: teachingUnitVM))
                     .padding(16)
                     .padding(.leading, 34)
                 
@@ -42,11 +43,12 @@ public struct TeachingUnitDetailView: View {
                                 .padding(.leading, 16)
                                 .padding(.trailing, 24)
                         }
-                        SubjectWithLineView(subject: subjectVM)
+                        ViewWithLineView(view : SubjectView(subject: subjectVM))
                     }
                     .padding(.top, 40)
                 }
             }
+            .navigationTitle(navigationTitle)
             .toolbar {
                 Button(action: {
                     teachingUnitVM.onEditing()

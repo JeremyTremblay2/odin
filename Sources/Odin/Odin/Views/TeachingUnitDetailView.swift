@@ -10,24 +10,25 @@ import SwiftUI
 import Model
 
 public struct TeachingUnitDetailView: View {
-    @ObservedObject var teachingUnit: TeachingUnitVM
+    @ObservedObject var odinVM: OdinVM
+    @ObservedObject var teachingUnitVM: TeachingUnitVM
     
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                Text("UE\(teachingUnit.model.unitNumber) : \(teachingUnit.model.titleName)")
+                Text("UE\(teachingUnitVM.model.unitNumber) : \(teachingUnitVM.model.titleName)")
                     .font(.largeTitle)
                     .bold()
                     .padding(16)
                 
-                TeachingUnitWithLineView(teachingUnit: teachingUnit)
+                TeachingUnitWithLineView(teachingUnit: teachingUnitVM)
                     .padding(16)
                     .padding(.leading, 34)
                 
-                TeachingUnitGlobalDetailView(coefficient: teachingUnit.model.coefficient)
+                TeachingUnitGlobalDetailView(coefficient: teachingUnitVM.model.coefficient)
                     .padding(.top, 20)
                 
-                ForEach(teachingUnit.model.subjects) { subject in
+                ForEach(teachingUnitVM.original.subjects) { subject in
                     HStack(alignment: .center) {
                         Image(systemName: "lock.fill")
                             .resizable()
@@ -42,12 +43,38 @@ public struct TeachingUnitDetailView: View {
                     .padding(.top, 40)
                 }
             }
+            .toolbar {
+                Button(action: {
+                    teachingUnitVM.isEdited.toggle()
+                }) {
+                    Text("Modifier")
+                }
+            }
+            .sheet(isPresented: $teachingUnitVM.isEdited) {
+                NavigationStack {
+                    EditTeachingUnitView(teachingUnitData: $teachingUnitVM.model)
+                        .toolbar {
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("Enregistrer") {
+                                    teachingUnitVM.onEdited()
+                                    odinVM.update(withTeachingUnitVM: teachingUnitVM)
+                                }
+                            }
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Annuler") {
+                                    teachingUnitVM.onEdited(isCancelled: true)
+                                }
+                            }
+                        }
+                }
+            }
         }
     }
 }
 
 struct TeachingUnitDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        TeachingUnitDetailView(teachingUnit: TeachingUnitVM(withTeachingUnit: generateOdin().teachingUnits.first!))
+        TeachingUnitDetailView(odinVM: OdinVM(withTeachingUnits: generateOdin().teachingUnits, withBlocs: generateOdin().blocs),
+                               teachingUnitVM: TeachingUnitVM(withTeachingUnit: generateOdin().teachingUnits.first!))
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 import Model
 
 struct CalculatorView: View {
-    public var odinVM: OdinVM
+    @ObservedObject var odinVM: OdinVM
     
     var body: some View {
         NavigationStack {

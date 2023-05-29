@@ -16,7 +16,7 @@ struct CalculatorView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    BlocsView(blocs: odinVM.blocs)
+                    BlocsView(odinVM: odinVM)
                         .padding(.top, 10)
                         .padding(.horizontal, 6)
                     

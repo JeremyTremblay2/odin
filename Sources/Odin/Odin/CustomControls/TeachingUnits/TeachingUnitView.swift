@@ -15,13 +15,17 @@ public struct TeachingUnitView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
-                Text("UE\(teachingUnit.model.unitNumber) : \(teachingUnit.model.titleName)")
+                Text("UE\(teachingUnit.model.unitNumber) : ")
                     .padding(.leading, 24)
+                TextField("Nom de l'UE", text: $teachingUnit.model.titleName)
+                    .disabled(!teachingUnit.isEdited)
                 Spacer()
-                Text(String(teachingUnit.model.coefficient))
+                TextField("Coeff", value: $teachingUnit.model.coefficient, formatter: NumberFormatter())
+                    .disabled(!teachingUnit.isEdited)
+                    .frame(width: 36)
             }
             .padding(.bottom, 16)
-            CapsuleSliderView(average: .constant(teachingUnit.original.average), valueToChangeColor: 10,
+            CapsuleSliderView(average: .constant(teachingUnit.original.average), isEditable: $teachingUnit.isEdited, valueToChangeColor: 10,
                               minValue: 0, maxValue: 20,
                               backgroundColor: .clear, foregroundColor: .red, otherForegroundColor: .green)
         }

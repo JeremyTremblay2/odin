@@ -11,17 +11,21 @@ import Model
 
 public struct SubjectView: View {
     @ObservedObject var subject: SubjectVM
+    var fieldsEditable: Bool = false
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 0) {
-                Text(subject.model.titleName)
+                TextField("Nom de la matière", text: $subject.model.titleName)
                     .padding(.leading, 24)
+                    .disabled(!subject.isEdited && !fieldsEditable)
                 Spacer()
-                Text(String(subject.model.coefficient))
+                TextField("Coeff", value: $subject.model.coefficient, formatter: NumberFormatter())
+                    .disabled(!subject.isEdited && !fieldsEditable)
+                    .frame(width: 36)
             }
             .padding(.bottom, 16)
-            CapsuleSliderView(average: $subject.model.average, valueToChangeColor: 10, minValue: 0, maxValue: 20,
+            CapsuleSliderView(average: $subject.model.average, isEditable: $subject.isEdited, valueToChangeColor: 10, minValue: 0, maxValue: 20,
                           backgroundColor: .clear, foregroundColor: .red, otherForegroundColor: .green)
         }
         .padding(.trailing, 16)
@@ -30,6 +34,6 @@ public struct SubjectView: View {
 
 struct SubjectView_Previews: PreviewProvider {
     static var previews: some View {
-        SubjectView(subject: SubjectVM(withSubject: generateOdin().teachingUnits.first!.subjects.first!))
+        SubjectView(subject: SubjectVM(withSubject: generateOdin().teachingUnits.first!.subjects.first!), fieldsEditable: true)
     }
 }

@@ -9,8 +9,8 @@ import Foundation
 
 public struct Bloc : Identifiable, Hashable, CustomStringConvertible {
     public let id: UUID
-    public private (set) var titleName: String
-    public private (set) var teachingUnits: [TeachingUnit]
+    public var titleName: String
+    public var teachingUnits: [TeachingUnit]
     
     public var average: Float? {
         let totalCoefficient = teachingUnits.reduce(0.0) { $0 + ($1.average == nil ? 0.0 : $1.coefficient) }

@@ -10,10 +10,10 @@ import SwiftUI
 import Model
 
 public struct BlocView: View {
-    var bloc: Bloc
+    @ObservedObject var blocVM: BlocVM
     
     private var averageValue: String {
-        bloc.average == nil ? "-" : String(format: "%.2f", bloc.average!)
+        blocVM.original.average == nil ? "-" : String(format: "%.2f", blocVM.original.average!)
     }
     
     public var body: some View {
@@ -21,7 +21,7 @@ public struct BlocView: View {
             HStack(spacing: 0) {
                 Image(systemName: "doc.on.doc.fill")
                     .padding(.trailing, 10)
-                Text(bloc.titleName)
+                Text(blocVM.original.titleName)
                 Spacer()
                 Text(averageValue)
                     .padding(.horizontal, 10)
@@ -33,6 +33,6 @@ public struct BlocView: View {
 
 struct BlocView_Previews: PreviewProvider {
     static var previews: some View {
-        BlocView(bloc: generateOdin().blocs.first!)
+        BlocView(blocVM: BlocVM(withBloc: generateOdin().blocs.first!))
     }
 }

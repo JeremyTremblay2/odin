@@ -10,6 +10,7 @@ import SwiftUI
 import Model
 
 public struct EditTeachingUnitView: View {
+    @ObservedObject var teachingUnitVM: TeachingUnitVM
     @Binding var teachingUnitData: TeachingUnit.Data
     
     public var body: some View {
@@ -25,9 +26,9 @@ public struct EditTeachingUnitView: View {
                     .padding(16)
                     
                     
-                    /*TeachingUnitWithLineView(teachingUnit: teachingUnitData)
+                    TeachingUnitWithLineView(teachingUnit: teachingUnitVM)
                      .padding(16)
-                     .padding(.leading, 34)*/
+                     .padding(.leading, 34)
                     
                     HStack(spacing: 0) {
                         Image(systemName: "multiply.circle.fill")
@@ -38,9 +39,13 @@ public struct EditTeachingUnitView: View {
                     .padding(.top, 20)
                     .padding(.leading, 16)
                     
-                    ForEach(teachingUnitData.subjects) { subject in
+                    ForEach($teachingUnitVM.original.subjects) { subject in
+                        let subjectVM = SubjectVM(withSubject: subject.wrappedValue)
+                        
                         HStack(alignment: .center) {
-                            Button(action: {}) {
+                            Button(action: {
+                                teachingUnitVM.removeSubject(toBeRemoved: subject.wrappedValue)
+                            }) {
                                 Image(systemName: "trash.fill")
                                     .resizable()
                                     .scaledToFit()
@@ -48,18 +53,22 @@ public struct EditTeachingUnitView: View {
                                     .foregroundColor(.blue)
                                 
                             }
-                            
                             .padding(.leading, 16)
                             .padding(.trailing, 24)
                             
-                            SubjectWithLineView(subject: SubjectVM(withSubject: subject))
+                            SubjectWithLineView(subject: subjectVM)
+                        }
+                        .onAppear() {
+                            subjectVM.onEditing()
                         }
                         .padding(.top, 40)
                     }
                     
                     Spacer()
                     HStack(alignment: .center) {
-                        Button("Ajouter une matière", action: {})
+                        Button("Ajouter une matière", action: {
+                            teachingUnitVM.addSubject()
+                        })
                             .padding(.horizontal, 26)
                             .padding(.vertical, 8)
                             .background(.yellow)
@@ -76,6 +85,7 @@ public struct EditTeachingUnitView: View {
 
 struct EditTeachingUnitView_Previews: PreviewProvider {
     static var previews: some View {
-        EditTeachingUnitView(teachingUnitData: .constant(generateOdin().teachingUnits.first!.data))
+        EditTeachingUnitView(teachingUnitVM: TeachingUnitVM(withTeachingUnit: generateOdin().teachingUnits.first!),
+                             teachingUnitData: .constant(generateOdin().teachingUnits.first!.data))
     }
 }

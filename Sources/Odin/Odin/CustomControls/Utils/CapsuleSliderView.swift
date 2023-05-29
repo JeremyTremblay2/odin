@@ -3,6 +3,7 @@ import SwiftUI
 
 struct CapsuleSliderView: View {
     @Binding var average: Float?
+    @Binding var isEditable: Bool
     var valueToChangeColor: Float
     
     var minValue: Float
@@ -56,6 +57,7 @@ struct CapsuleSliderView: View {
                     self.updateSliderPosition(with: value.x, geometry: geometry)
                 }
             }
+            .disabled(!$isEditable.wrappedValue)
         }
         .frame(height: height)
     }
@@ -78,7 +80,7 @@ struct CapsuleSliderView: View {
 
 struct CapsuleSliderView_Previews: PreviewProvider {
     static var previews: some View {
-        CapsuleSliderView(average: .constant(15.33), valueToChangeColor: 8, minValue: 0, maxValue: 20,
+        CapsuleSliderView(average: .constant(15.33), isEditable: .constant(true), valueToChangeColor: 8, minValue: 0, maxValue: 20,
                           backgroundColor: .clear, foregroundColor: .red, otherForegroundColor: .green)
     }
 }

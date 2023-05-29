@@ -29,30 +29,34 @@ public struct TeachingUnitDetailView: View {
                     .padding(.top, 20)
                 
                 ForEach(teachingUnitVM.original.subjects) { subject in
+                    let subjectVM = SubjectVM(withSubject: subject)
                     HStack(alignment: .center) {
-                        Image(systemName: "lock.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 16)
-                            .foregroundColor(.blue)
-                            .padding(.leading, 16)
-                            .padding(.trailing, 24)
-                        
-                        SubjectWithLineView(subject: SubjectVM(withSubject: subject))
+                        Button(action: {
+                            subjectVM.isEdited ? subjectVM.onEdited() : subjectVM.onEditing()
+                        }) {
+                            Image(systemName: (subjectVM.isEdited ? "lock.open.fill" : "lock.fill"))
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 16)
+                                .foregroundColor(.blue)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 24)
+                        }
+                        SubjectWithLineView(subject: subjectVM)
                     }
                     .padding(.top, 40)
                 }
             }
             .toolbar {
                 Button(action: {
-                    teachingUnitVM.isEdited.toggle()
+                    teachingUnitVM.onEditing()
                 }) {
                     Text("Modifier")
                 }
             }
             .sheet(isPresented: $teachingUnitVM.isEdited) {
                 NavigationStack {
-                    EditTeachingUnitView(teachingUnitData: $teachingUnitVM.model)
+                    EditTeachingUnitView(teachingUnitVM: teachingUnitVM, teachingUnitData: $teachingUnitVM.model)
                         .toolbar {
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("Enregistrer") {

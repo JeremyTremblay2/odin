@@ -11,15 +11,14 @@ import Model
 
 public struct EditTeachingUnitView: View {
     @ObservedObject var teachingUnitVM: TeachingUnitVM
-    @Binding var teachingUnitData: TeachingUnit.Data
     
     public var body: some View {
         GeometryReader { geometry in
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(spacing: 0) {
-                        Text("UE\(teachingUnitData.unitNumber) : ")
-                        TextField("Name", text: $teachingUnitData.titleName)
+                        Text("UE\(teachingUnitVM.unitNumber) : ")
+                        TextField("Name", text: $teachingUnitVM.titleName)
                     }
                     .font(.largeTitle)
                     .bold()
@@ -34,17 +33,15 @@ public struct EditTeachingUnitView: View {
                         Image(systemName: "multiply.circle.fill")
                         Text("Coefficient : ")
                             .padding(.leading, 10)
-                        TextField("Coefficient", value: $teachingUnitData.coefficient, formatter: NumberFormatter())
+                        TextField("Coefficient", value: $teachingUnitVM.coefficient, formatter: NumberFormatter())
                     }
                     .padding(.top, 20)
                     .padding(.leading, 16)
                     
-                    ForEach($teachingUnitVM.original.subjects) { subject in
-                        let subjectVM = SubjectVM(withSubject: subject.wrappedValue)
-                        
+                    ForEach(teachingUnitVM.subjectsVM) { subject in
                         HStack(alignment: .center) {
                             Button(action: {
-                                teachingUnitVM.removeSubject(toBeRemoved: subject.wrappedValue)
+                                teachingUnitVM.removeSubject(toBeRemoved: subject)
                             }) {
                                 Image(systemName: "trash.fill")
                                     .resizable()
@@ -56,10 +53,10 @@ public struct EditTeachingUnitView: View {
                             .padding(.leading, 16)
                             .padding(.trailing, 24)
                             
-                            ViewWithLineView(view: SubjectView(subject: subjectVM, fieldsEditable: true))
+                            ViewWithLineView(view: SubjectView(subject: subject.editedCopy ?? subject, fieldsEditable: true))
                         }
                         .onAppear() {
-                            subjectVM.onEditing()
+                            subject.onEditing()
                         }
                         .padding(.top, 40)
                     }
@@ -85,7 +82,6 @@ public struct EditTeachingUnitView: View {
 
 struct EditTeachingUnitView_Previews: PreviewProvider {
     static var previews: some View {
-        EditTeachingUnitView(teachingUnitVM: TeachingUnitVM(withTeachingUnit: generateOdin().teachingUnits.first!),
-                             teachingUnitData: .constant(generateOdin().teachingUnits.first!.data))
+        EditTeachingUnitView(teachingUnitVM: TeachingUnitVM(withTeachingUnit: generateOdin().teachingUnits.first!))
     }
 }

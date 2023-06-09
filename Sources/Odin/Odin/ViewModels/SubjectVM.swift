@@ -38,13 +38,13 @@ class SubjectVM : ObservableObject, Identifiable, Equatable {
     @Published var model: Subject = Subject(withId: UUID(), andName: "Matière", andCoeff: 1) {
         didSet {
             if self.model.titleName != self.titleName {
-                self.model.titleName = self.titleName
+                self.titleName = self.model.titleName
             }
             if self.model.coefficient != self.coefficient {
-                self.model.coefficient = self.coefficient
+                self.coefficient = self.model.coefficient
             }
             if self.model.average != self.average {
-                self.model.average = self.average
+                self.average = self.model.average
             }
         }
     }
@@ -75,20 +75,26 @@ class SubjectVM : ObservableObject, Identifiable, Equatable {
     
     public var id: UUID { model.id }
     
-    @Published var isEdited = false
+    @Published var isEditing: Bool = false
+    private var copy: SubjectVM { SubjectVM(withSubject: self.model) }
+    var editedCopy: SubjectVM?
     
     static func == (lhs: SubjectVM, rhs: SubjectVM) -> Bool {
         lhs.id == rhs.id
     }
-    
-    func onEditing() {
-        isEdited = true
+
+    func onEditing(){
+        editedCopy = self.copy
+        isEditing = true
     }
-    
-    func onEdited(isCancelled cancelled: Bool = false) {
-        if (!cancelled) {
-            //original.update(fromData: model)
+        
+    func onEdited(isCancelled cancel: Bool = false) {
+        if !cancel {
+            if let editedCopy = editedCopy {
+                self.model = editedCopy.model
+            }
         }
-        isEdited = false
+        editedCopy = nil
+        isEditing = false
     }
 }

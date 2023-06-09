@@ -13,8 +13,4 @@ public class BaseVM {
     init(callbacks: [ (BaseVM) -> Void]) {
         self.callbacks = callbacks
     }
-    
-    public func addCallback(callback: (BaseVM) -> ()) {
-        callbacks.append(callback)
-    }
 }

@@ -29,21 +29,31 @@ public struct TeachingUnitDetailView: View {
                 TeachingUnitGlobalDetailView(coefficient: teachingUnitVM.model.coefficient)
                     .padding(.top, 20)
                 
-                ForEach(teachingUnitVM.original.subjects) { subject in
-                    let subjectVM = SubjectVM(withSubject: subject)
+                ForEach($teachingUnitVM.subjectsVM) { $subject in
                     HStack(alignment: .center) {
                         Button(action: {
-                            subjectVM.isEdited ? subjectVM.onEdited() : subjectVM.onEditing()
+                            subject.isEditing ? subject.onEdited() : subject.onEditing()
                         }) {
-                            Image(systemName: (subjectVM.isEdited ? "lock.open.fill" : "lock.fill"))
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 16)
-                                .foregroundColor(.blue)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 24)
+                            if subject.isEditing {
+                                Image(systemName: "lock.open.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 16)
+                                    .foregroundColor(.blue)
+                                    .padding(.leading, 16)
+                                    .padding(.trailing, 24)
+                            }
+                            else {
+                                Image(systemName: "flame")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 16)
+                                    .foregroundColor(.blue)
+                                    .padding(.leading, 16)
+                                    .padding(.trailing, 24)
+                            }
                         }
-                        ViewWithLineView(view : SubjectView(subject: subjectVM))
+                        ViewWithLineView(view : SubjectView(subject: subject.editedCopy ?? subject))
                     }
                     .padding(.top, 40)
                 }
@@ -56,9 +66,9 @@ public struct TeachingUnitDetailView: View {
                     Text("Modifier")
                 }
             }
-            .sheet(isPresented: $teachingUnitVM.isEdited) {
+            .sheet(isPresented: $teachingUnitVM.isEditing) {
                 NavigationStack {
-                    EditTeachingUnitView(teachingUnitVM: teachingUnitVM, teachingUnitData: $teachingUnitVM.model)
+                    EditTeachingUnitView(teachingUnitVM: teachingUnitVM.editedCopy!)
                         .toolbar {
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("Enregistrer") {

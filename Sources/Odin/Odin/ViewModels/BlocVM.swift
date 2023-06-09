@@ -49,7 +49,7 @@ class BlocVM : ObservableObject, Identifiable, Equatable {
     @Published var model: Bloc = Bloc(withId: UUID(), andTitle: "") {
         didSet {
             if self.model.titleName != self.titleName {
-                self.model.titleName = self.titleName
+                self.titleName = self.model.titleName
             }
             if !self.model.teachingUnits.compare(to: self.teachingUnitsVM.map({ $0.model })) {
                 self.teachingUnitsVM = self.model.teachingUnits.map({ TeachingUnitVM(withTeachingUnit: $0) })

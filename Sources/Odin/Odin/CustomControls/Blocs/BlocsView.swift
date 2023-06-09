@@ -27,8 +27,8 @@ public struct BlocsView: View {
             .padding(.bottom, 4)
             Text("Vous devez avoir la moyenne à chacun de ces blocs pour avoir votre diplôme.")
                 .padding(.bottom, 12)
-            ForEach(odinVM.blocs) { bloc in
-                BlocView(blocVM: BlocVM(withBloc: bloc))
+            ForEach($odinVM.blocsVM) { $bloc in
+                BlocView(blocVM: bloc)
                     .padding(.bottom, 4)
             }
         }

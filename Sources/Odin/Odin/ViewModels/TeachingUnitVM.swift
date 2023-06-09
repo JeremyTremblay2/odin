@@ -53,13 +53,13 @@ class TeachingUnitVM : ObservableObject, Identifiable, Equatable {
     @Published var model: TeachingUnit = TeachingUnit(withId: UUID(), andName: "Unité d'enseignement", andUnitNumber: 5, andCoeff: 1) {
         didSet {
             if self.model.titleName != self.titleName {
-                self.model.titleName = self.titleName
+                self.titleName = self.model.titleName
             }
             if self.model.unitNumber != self.unitNumber {
-                self.model.unitNumber = self.unitNumber
+                self.unitNumber = self.model.unitNumber
             }
             if self.model.coefficient != self.coefficient {
-                self.model.coefficient = self.coefficient
+                self.coefficient = self.model.coefficient
             }
             if !self.model.subjects.compare(to: self.subjectsVM.map({ $0.model })) {
                 self.subjectsVM = self.model.subjects.map({ SubjectVM(withSubject: $0) })
@@ -102,34 +102,38 @@ class TeachingUnitVM : ObservableObject, Identifiable, Equatable {
     
     public var id: UUID { model.id }
     
-    @Published var isEdited = false
+    @Published var isEditing: Bool = false
+    private var copy: TeachingUnitVM { TeachingUnitVM(withTeachingUnit: self.model) }
+    var editedCopy: TeachingUnitVM?
     
     static func == (lhs: TeachingUnitVM, rhs: TeachingUnitVM) -> Bool {
         lhs.id == rhs.id
     }
     
-    func onEditing() {
-        //copy = TeachingUnitVM(withTeachingUnit: original)
-        isEdited = true
-    }
-    
-    func onEdited(isCancelled cancelled: Bool = false) {
-        if (!cancelled) {
-            //original = copy?.original ?? original
-        }
-        isEdited = false
-    }
-    
     func addSubject() {
-        let subject = Subject(withName: "Matière", andCoeff: 1)
+        let subject = Subject(withName: "Matière", andCoeff: Float(model.unitNumber + 1))
         model.subjects.append(subject)
-        subjects.append(SubjectVM(withSubject: subject))
     }
     
-    func removeSubject(toBeRemoved subject: Subject) {
-        guard let index = model.subjects.firstIndex(of: subject) else {
+    func removeSubject(toBeRemoved subject: SubjectVM) {
+        guard let index = model.subjects.firstIndex(of: subject.model) else {
             return
         }
         model.subjects.remove(at: index)
+    }
+    
+    func onEditing(){
+        editedCopy = self.copy
+        isEditing = true
+    }
+        
+    func onEdited(isCancelled cancel: Bool = false) {
+        if !cancel {
+            if let editedCopy = editedCopy {
+                self.model = editedCopy.model
+            }
+        }
+        editedCopy = nil
+        isEditing = false
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import Model
 
-extension Bloc {
+/*extension Bloc {
     struct Data: Identifiable {
         public let id: UUID
         public private (set) var titleName: String
@@ -37,14 +37,44 @@ extension Bloc {
             Subject(withId: $0.id, andName: $0.titleName, andCoeff: $0.coefficient, andAverage: $0.average)
         } )}
     }
-}
+}*/
 
-class BlocVM : ObservableObject {
-    var original: Bloc
-    @Published var model: Bloc.Data
+class BlocVM : ObservableObject, Identifiable, Equatable {
+    init() {}
     
     init(withBloc bloc: Bloc) {
-        self.original = bloc
-        self.model = original.data
+        self.model = bloc
+    }
+    
+    @Published var model: Bloc = Bloc(withId: UUID(), andTitle: "") {
+        didSet {
+            if self.model.titleName != self.titleName {
+                self.model.titleName = self.titleName
+            }
+            if !self.model.teachingUnits.compare(to: self.teachingUnitsVM.map({ $0.model })) {
+                self.teachingUnitsVM = self.model.teachingUnits.map({ TeachingUnitVM(withTeachingUnit: $0) })
+            }
+        }
+    }
+    
+    @Published var titleName: String = "" {
+        didSet {
+            if self.model.titleName != self.titleName {
+                self.model.titleName = self.titleName
+            }
+        }
+    }
+    
+    @Published var teachingUnitsVM: [TeachingUnitVM] = [] {
+        didSet {
+            let teachingUnitModels = self.teachingUnitsVM.map({ $0.model })
+            if !self.model.teachingUnits.compare(to: teachingUnitModels) {
+                self.model.teachingUnits = teachingUnitsVM.map({ $0.model })
+            }
+        }
+    }
+    
+    public static func == (lhs: BlocVM, rhs: BlocVM) -> Bool {
+        return lhs.id == rhs.id
     }
 }

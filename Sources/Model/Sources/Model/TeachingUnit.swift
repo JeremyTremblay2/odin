@@ -33,20 +33,20 @@ public struct TeachingUnit: Identifiable, Hashable, CustomStringConvertible {
         return name
     }
     
-    public init(withId id: UUID, andName titleName: String, andUnitNumber unitNumber: Int, andCoeff coefficient: Float, andSubjects subjects: [Subject]) {
+    public init(withId id: UUID, andName titleName: String, andUnitNumber unitNumber: Int, andCoeff coefficient: Float, andSubjects subjects: [Subject]? = nil) {
         self.id = id
         self.titleName = titleName
         self.unitNumber = unitNumber
         self.coefficient = coefficient
-        self.subjects = subjects
+        self.subjects = subjects ?? []
     }
     
-    public init(withName titleName: String, andUnitNumber unitNumber: Int, andCoeff coefficient: Float, andSubjects subjects: [Subject]) {
+    public init(withName titleName: String, andUnitNumber unitNumber: Int, andCoeff coefficient: Float, andSubjects subjects: [Subject]? = nil) {
         id = UUID()
         self.titleName = titleName
         self.unitNumber = unitNumber
         self.coefficient = coefficient
-        self.subjects = subjects
+        self.subjects = subjects ?? []
     }
     
     public static func == (lhs: TeachingUnit, rhs: TeachingUnit) -> Bool {

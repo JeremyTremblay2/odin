@@ -27,16 +27,16 @@ public struct Bloc : Identifiable, Hashable, CustomStringConvertible {
         "[\(id)] \(titleName) - \(average != nil ? String(average!) : "No notes")\n"
     }
     
-    public init(withId id: UUID, andTitle titleName: String, andTeachingUnits teachingUnits: [TeachingUnit]) {
+    public init(withId id: UUID, andTitle titleName: String, andTeachingUnits teachingUnits: [TeachingUnit]? = nil) {
         self.id = id
         self.titleName = titleName
-        self.teachingUnits = teachingUnits
+        self.teachingUnits = teachingUnits ?? []
     }
     
-    public init(withTitle titleName: String, andTeachingUnits teachingUnits: [TeachingUnit]) {
+    public init(withTitle titleName: String, andTeachingUnits teachingUnits: [TeachingUnit]? = nil) {
         id = UUID()
         self.titleName = titleName
-        self.teachingUnits = teachingUnits
+        self.teachingUnits = teachingUnits ?? []
     }
     
     public static func == (lhs: Bloc, rhs: Bloc) -> Bool {

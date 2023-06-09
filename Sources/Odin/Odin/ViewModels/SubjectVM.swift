@@ -8,7 +8,7 @@
 import Foundation
 import Model
 
-extension Subject {
+/*extension Subject {
     struct Data: Identifiable {
         public let id: UUID
         public var titleName: String
@@ -26,27 +26,68 @@ extension Subject {
         self.coefficient = data.coefficient
         self.average = data.average
     }
-}
+}*/
 
-class SubjectVM : ObservableObject {
-    var original: Subject
-    
-    @Published var model: Subject.Data = Subject.Data(id: UUID(), titleName: "", coefficient: 1, average: nil)
-    @Published var isEdited = false
+class SubjectVM : ObservableObject, Identifiable, Equatable {
+    init() {}
     
     init(withSubject subject: Subject) {
-        self.original = subject
-        model = original.data
+        self.model = subject
+    }
+    
+    @Published var model: Subject = Subject(withId: UUID(), andName: "Matière", andCoeff: 1) {
+        didSet {
+            if self.model.titleName != self.titleName {
+                self.model.titleName = self.titleName
+            }
+            if self.model.coefficient != self.coefficient {
+                self.model.coefficient = self.coefficient
+            }
+            if self.model.average != self.average {
+                self.model.average = self.average
+            }
+        }
+    }
+    
+    @Published var titleName: String = "" {
+        didSet {
+            if self.model.titleName != self.titleName {
+                self.model.titleName = self.titleName
+            }
+        }
+    }
+    
+    @Published var coefficient: Float = 0 {
+        didSet {
+            if self.model.coefficient != self.coefficient {
+                self.model.coefficient = self.coefficient
+            }
+        }
+    }
+    
+    @Published var average: Float? = nil {
+        didSet {
+            if self.model.average != self.average {
+                self.model.average = self.average
+            }
+        }
+    }
+    
+    public var id: UUID { model.id }
+    
+    @Published var isEdited = false
+    
+    static func == (lhs: SubjectVM, rhs: SubjectVM) -> Bool {
+        lhs.id == rhs.id
     }
     
     func onEditing() {
-        model = original.data
         isEdited = true
     }
     
     func onEdited(isCancelled cancelled: Bool = false) {
         if (!cancelled) {
-            original.update(fromData: model)
+            //original.update(fromData: model)
         }
         isEdited = false
     }

@@ -8,7 +8,7 @@
 import Foundation
 import Model
 
-extension TeachingUnit {
+/*extension TeachingUnit {
     struct Data: Identifiable {
         public let id: UUID
         public var titleName: String
@@ -41,40 +41,95 @@ extension TeachingUnit {
         self.coefficient = data.coefficient
         self.subjects = data.subjects.map{ Subject(withId: $0.id, andName: $0.titleName, andCoeff: $0.coefficient, andAverage: $0.average)}
     }
-}
+}*/
 
-class TeachingUnitVM : ObservableObject {
-    var original: TeachingUnit
-    
-    @Published var model: TeachingUnit.Data = TeachingUnit.Data(id: UUID(), titleName: "", unitNumber: 1, coefficient: 1, subjects: [])
-    @Published var isEdited = false
+class TeachingUnitVM : ObservableObject, Identifiable, Equatable {
+    init() {}
     
     init(withTeachingUnit teachingUnit: TeachingUnit) {
-        self.original = teachingUnit
-        model = original.data
+        self.model = teachingUnit
+    }
+    
+    @Published var model: TeachingUnit = TeachingUnit(withId: UUID(), andName: "Unité d'enseignement", andUnitNumber: 5, andCoeff: 1) {
+        didSet {
+            if self.model.titleName != self.titleName {
+                self.model.titleName = self.titleName
+            }
+            if self.model.unitNumber != self.unitNumber {
+                self.model.unitNumber = self.unitNumber
+            }
+            if self.model.coefficient != self.coefficient {
+                self.model.coefficient = self.coefficient
+            }
+            if !self.model.subjects.compare(to: self.subjectsVM.map({ $0.model })) {
+                self.subjectsVM = self.model.subjects.map({ SubjectVM(withSubject: $0) })
+            }
+        }
+    }
+    
+    @Published var titleName: String = "" {
+        didSet {
+            if self.model.titleName != self.titleName {
+                self.model.titleName = self.titleName
+            }
+        }
+    }
+    
+    @Published var unitNumber: Int = 0 {
+        didSet {
+            if self.model.unitNumber != self.unitNumber {
+                self.model.unitNumber = self.unitNumber
+            }
+        }
+    }
+    
+    @Published var coefficient: Float = 0 {
+        didSet {
+            if self.model.coefficient != self.coefficient {
+                self.model.coefficient = self.coefficient
+            }
+        }
+    }
+    
+    @Published var subjectsVM: [SubjectVM] = [] {
+        didSet {
+            let subjectModels = self.subjectsVM.map({ $0.model })
+            if !self.model.subjects.compare(to: subjectModels){
+                self.model.subjects = subjectsVM.map({ $0.model })
+            }
+        }
+    }
+    
+    public var id: UUID { model.id }
+    
+    @Published var isEdited = false
+    
+    static func == (lhs: TeachingUnitVM, rhs: TeachingUnitVM) -> Bool {
+        lhs.id == rhs.id
     }
     
     func onEditing() {
-        model = original.data
+        //copy = TeachingUnitVM(withTeachingUnit: original)
         isEdited = true
     }
     
     func onEdited(isCancelled cancelled: Bool = false) {
         if (!cancelled) {
-            original.update(fromData: model)
+            //original = copy?.original ?? original
         }
         isEdited = false
-        model = original.data
     }
     
     func addSubject() {
-        original.subjects.append(Subject(withName: "Matière", andCoeff: 1))
+        let subject = Subject(withName: "Matière", andCoeff: 1)
+        model.subjects.append(subject)
+        subjects.append(SubjectVM(withSubject: subject))
     }
     
     func removeSubject(toBeRemoved subject: Subject) {
-        guard let index = original.subjects.firstIndex(of: subject) else {
+        guard let index = model.subjects.firstIndex(of: subject) else {
             return
         }
-        original.subjects.remove(at: index)
+        model.subjects.remove(at: index)
     }
 }

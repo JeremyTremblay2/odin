@@ -16,7 +16,8 @@ public class JsonPersistenceStrategy : PersistenceStrategy {
                        .appendingPathComponent("scrums.data")
     }
     
-    func save(data: PersistenceData) async throws {
+    public func save(withTeachingUnits teachingUnits: [TeachingUnit], withBlocs blocs: [Bloc]) async throws {
+        let data = PersistenceData(teachingUnits: teachingUnits, blocs: blocs)
         let task = Task {
             let data = try JSONEncoder().encode(data)
             let outfile = try Self.fileURL()
@@ -25,7 +26,7 @@ public class JsonPersistenceStrategy : PersistenceStrategy {
         try await task.value
     }
 
-    func load() async throws -> PersistenceData {
+    public func load() async throws -> ([TeachingUnit], [Bloc]) {
         let task = Task<PersistenceData, Error> {
             let fileURL = try Self.fileURL()
             guard let data = try? Data(contentsOf: fileURL) else {
@@ -48,6 +49,6 @@ public class JsonPersistenceStrategy : PersistenceStrategy {
         if persistenceData.blocs.isEmpty || persistenceData.teachingUnits.isEmpty {
             persistenceData = PersistenceData(teachingUnits: generateOdin().teachingUnits, blocs: generateOdin().blocs)
         }
-        return persistenceData
+        return (persistenceData.teachingUnits, persistenceData.blocs)
     }
 }

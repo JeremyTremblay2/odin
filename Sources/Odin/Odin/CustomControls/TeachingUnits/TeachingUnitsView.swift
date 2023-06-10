@@ -50,6 +50,6 @@ public struct TeachingUnitsView: View {
 
 struct TeachingUnitsView_Previews: PreviewProvider {
     static var previews: some View {
-        TeachingUnitsView(odinVM: OdinVM(withTeachingUnits: generateOdin().teachingUnits, withBlocs: generateOdin().blocs))
+        TeachingUnitsView(odinVM: OdinVM(withPersistenceStrategy: JsonPersistenceStrategy()))
     }
 }

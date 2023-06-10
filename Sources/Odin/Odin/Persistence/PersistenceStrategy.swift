@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import Model
 
-protocol PersistenceStrategy {
-    func save(data: PersistenceData) async throws
-    func load() async throws -> PersistenceData
+public protocol PersistenceStrategy {
+    func save(withTeachingUnits teachingUnits: [TeachingUnit], withBlocs blocs: [Bloc]) async throws
+    func load() async throws -> ([TeachingUnit], [Bloc])
 }

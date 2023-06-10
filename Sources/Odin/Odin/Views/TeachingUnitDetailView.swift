@@ -117,7 +117,7 @@ public struct TeachingUnitDetailView: View {
 
 struct TeachingUnitDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        TeachingUnitDetailView(odinVM: OdinVM(withTeachingUnits: generateOdin().teachingUnits, withBlocs: generateOdin().blocs),
+        TeachingUnitDetailView(odinVM: OdinVM(withPersistenceStrategy: JsonPersistenceStrategy()),
                                teachingUnitVM: TeachingUnitVM(withTeachingUnit: generateOdin().teachingUnits.first!))
     }
 }

@@ -9,19 +9,15 @@ import Foundation
 import Model
 
 class OdinVM : ObservableObject, Identifiable, Equatable {
-    private let persistenceStrategy: PersistenceStrategy = JsonPersistenceStrategy()
+    private let persistenceStrategy: PersistenceStrategy
     
     @Published var teachingUnitsVM: [TeachingUnitVM]
     @Published var blocsVM: [BlocVM]
     
-    public init(withTeachingUnits teachingUnits: [TeachingUnitVM], withBlocs blocs: [BlocVM]) {
-        self.teachingUnitsVM = teachingUnits
-        self.blocsVM = blocs
-    }
-        
-    public init(withTeachingUnits teachingUnits: [TeachingUnit], withBlocs blocs: [Bloc]) {
-        self.teachingUnitsVM = teachingUnits.map({ TeachingUnitVM(withTeachingUnit: $0) })
-        self.blocsVM = blocs.map({ BlocVM(withBloc: $0) })
+    public init(withPersistenceStrategy strategy: PersistenceStrategy) {
+        self.persistenceStrategy = strategy
+        teachingUnitsVM = []
+        blocsVM = []
     }
     
     static func == (lhs: OdinVM, rhs: OdinVM) -> Bool {
@@ -44,12 +40,12 @@ class OdinVM : ObservableObject, Identifiable, Equatable {
     }
     
     public func save() async throws {
-        try await persistenceStrategy.save(data: PersistenceData(teachingUnits: teachingUnitsVM.map { $0.model }, blocs: blocsVM.map { $0.model }))
+        try await persistenceStrategy.save(withTeachingUnits: teachingUnitsVM.map { $0.model }, withBlocs: blocsVM.map { $0.model })
     }
 
     public func load() async throws {
         let data = try await persistenceStrategy.load()
-        self.teachingUnitsVM = data.teachingUnits.map { TeachingUnitVM(withTeachingUnit: $0) }
-        self.blocsVM = data.blocs.map { BlocVM(withBloc: $0) }
+        self.teachingUnitsVM = data.0.map { TeachingUnitVM(withTeachingUnit: $0) }
+        self.blocsVM = data.1.map { BlocVM(withBloc: $0) }
     }
 }

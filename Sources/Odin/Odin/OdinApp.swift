@@ -15,7 +15,24 @@ struct OdinApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CalculatorView(odinVM: odinVM)
+            CalculatorView(odinVM: odinVM) {
+                Task {
+                    do {
+                        try await odinVM.save()
+                    }
+                    catch {
+                        fatalError(error.localizedDescription)
+                    }
+                }
+            }
+            .task {
+                do {
+                    try await odinVM.load()
+                }
+                catch {
+                    fatalError(error.localizedDescription)
+                }
+            }
         }
     }
 }

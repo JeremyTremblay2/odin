@@ -8,12 +8,12 @@
 import Foundation
 import Model
 
-extension Subject {
+/*extension Subject {
     struct Data: Identifiable {
         public let id: UUID
-        public private (set) var titleName: String
-        public private (set) var coefficient: Float
-        public private (set) var average: Float?
+        public var titleName: String
+        public var coefficient: Float
+        public var average: Float?
     }
     
     var data: Data { Data(id: self.id, titleName: self.titleName, coefficient: self.coefficient, average: self.average) }
@@ -26,28 +26,75 @@ extension Subject {
         self.coefficient = data.coefficient
         self.average = data.average
     }
-}
+}*/
 
-class SubjectVM : ObservableObject {
-    var original: Subject
-    
-    @Published var model: Subject.Data = Subject.Data(id: UUID(), titleName: "", coefficient: 1)
-    @Published var isEdited = false
+class SubjectVM : ObservableObject, Identifiable, Equatable {
+    init() {}
     
     init(withSubject subject: Subject) {
-        self.original = subject
-        model = original.data
+        self.model = subject
     }
     
-    func onEditing() {
-        model = original.data
-        isEdited = false
-    }
-    
-    func onEdited(isCancelled cancelled: Bool = false) {
-        if (!cancelled) {
-            original.update(fromData: model)
+    @Published var model: Subject = Subject(withId: UUID(), andName: "Matière", andCoeff: 1) {
+        didSet {
+            if self.model.titleName != self.titleName {
+                self.titleName = self.model.titleName
+            }
+            if self.model.coefficient != self.coefficient {
+                self.coefficient = self.model.coefficient
+            }
+            if self.model.average != self.average {
+                self.average = self.model.average
+            }
         }
-        isEdited = false
+    }
+    
+    @Published var titleName: String = "" {
+        didSet {
+            if self.model.titleName != self.titleName {
+                self.model.titleName = self.titleName
+            }
+        }
+    }
+    
+    @Published var coefficient: Float = 0 {
+        didSet {
+            if self.model.coefficient != self.coefficient {
+                self.model.coefficient = self.coefficient
+            }
+        }
+    }
+    
+    @Published var average: Float? = nil {
+        didSet {
+            if self.model.average != self.average {
+                self.model.average = self.average
+            }
+        }
+    }
+    
+    public var id: UUID { model.id }
+    
+    @Published var isEditing: Bool = false
+    private var copy: SubjectVM { SubjectVM(withSubject: self.model) }
+    var editedCopy: SubjectVM?
+    
+    static func == (lhs: SubjectVM, rhs: SubjectVM) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func onEditing(){
+        editedCopy = self.copy
+        isEditing = true
+    }
+        
+    func onEdited(isCancelled cancel: Bool = false) {
+        if !cancel {
+            if let editedCopy = editedCopy {
+                self.model = editedCopy.model
+            }
+        }
+        editedCopy = nil
+        isEditing = false
     }
 }

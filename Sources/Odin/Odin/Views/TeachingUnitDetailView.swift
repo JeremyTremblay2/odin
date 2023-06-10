@@ -13,55 +13,94 @@ public struct TeachingUnitDetailView: View {
     @ObservedObject var odinVM: OdinVM
     @ObservedObject var teachingUnitVM: TeachingUnitVM
     
+    var navigationTitle: String {
+        "UE\(teachingUnitVM.model.unitNumber) : \(teachingUnitVM.model.titleName)"
+    }
+    
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                Text("UE\(teachingUnitVM.model.unitNumber) : \(teachingUnitVM.model.titleName)")
-                    .font(.largeTitle)
-                    .bold()
-                    .padding(16)
                 
-                TeachingUnitWithLineView(teachingUnit: teachingUnitVM)
+                ViewWithLineView(view: TeachingUnitView(teachingUnit: teachingUnitVM))
                     .padding(16)
                     .padding(.leading, 34)
                 
                 TeachingUnitGlobalDetailView(coefficient: teachingUnitVM.model.coefficient)
                     .padding(.top, 20)
                 
-                ForEach(teachingUnitVM.original.subjects) { subject in
-                    let subjectVM = SubjectVM(withSubject: subject)
+                ForEach($teachingUnitVM.subjectsVM) { $subject in
                     HStack(alignment: .center) {
                         Button(action: {
-                            subjectVM.isEdited ? subjectVM.onEdited() : subjectVM.onEditing()
+                            subject.isEditing ? subject.onEdited() : subject.onEditing()
                         }) {
-                            Image(systemName: (subjectVM.isEdited ? "lock.open.fill" : "lock.fill"))
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 16)
-                                .foregroundColor(.blue)
-                                .padding(.leading, 16)
-                                .padding(.trailing, 24)
+                            if subject.isEditing {
+                                Image(systemName: "lock.open.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 16)
+                                    .foregroundColor(.blue)
+                                    .padding(.leading, 16)
+                                    .padding(.trailing, 24)
+                            }
+                            else {
+                                Image(systemName: "flame")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 16)
+                                    .foregroundColor(.blue)
+                                    .padding(.leading, 16)
+                                    .padding(.trailing, 24)
+                            }
                         }
-                        SubjectWithLineView(subject: subjectVM)
+                        ViewWithLineView(view : SubjectView(subject: subject.editedCopy ?? subject))
                     }
                     .padding(.top, 40)
                 }
             }
+            .navigationTitle(navigationTitle)
             .toolbar {
                 Button(action: {
                     teachingUnitVM.onEditing()
                 }) {
                     Text("Modifier")
                 }
+                Button(action:{
+                    self.teachingUnitVM.onAdding()
+                    teachingUnitVM.addedItem?.onEditing()
+                }) {
+                    Text("Ajouter")
+                }
             }
-            .sheet(isPresented: $teachingUnitVM.isEdited) {
+            .sheet(isPresented: $teachingUnitVM.isAdding){
+                NavigationStack{
+                    SubjectView(subject: teachingUnitVM.addedItem!, fieldsEditable: true)
+                        .toolbar{
+                            ToolbarItem(id: "add", placement: .confirmationAction){
+                                Button(action: {
+                                    self.teachingUnitVM.addedItem?.onEdited()
+                                    self.teachingUnitVM.onAdded()
+                                }) {
+                                    Text("Ajouter")
+                                }
+                            }
+                            ToolbarItem(id: "cancel", placement: .cancellationAction){
+                                Button(action: {
+                                    self.teachingUnitVM.onAdded(isCancelled: true)
+                                }) {
+                                    Text("Annuler")
+                                }
+                            }
+                        }
+                        .navigationBarTitle("Ajout d'une matière")
+                }
+            }
+            .sheet(isPresented: $teachingUnitVM.isEditing) {
                 NavigationStack {
-                    EditTeachingUnitView(teachingUnitVM: teachingUnitVM, teachingUnitData: $teachingUnitVM.model)
+                    EditTeachingUnitView(teachingUnitVM: teachingUnitVM.editedCopy!)
                         .toolbar {
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("Enregistrer") {
                                     teachingUnitVM.onEdited()
-                                    odinVM.update(withTeachingUnitVM: teachingUnitVM)
                                 }
                             }
                             ToolbarItem(placement: .cancellationAction) {

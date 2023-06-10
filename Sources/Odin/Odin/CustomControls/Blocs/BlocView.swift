@@ -13,7 +13,7 @@ public struct BlocView: View {
     @ObservedObject var blocVM: BlocVM
     
     private var averageValue: String {
-        blocVM.original.average == nil ? "-" : String(format: "%.2f", blocVM.original.average!)
+        blocVM.model.average == nil ? "-" : String(format: "%.2f", blocVM.model.average!)
     }
     
     public var body: some View {
@@ -21,7 +21,7 @@ public struct BlocView: View {
             HStack(spacing: 0) {
                 Image(systemName: "doc.on.doc.fill")
                     .padding(.trailing, 10)
-                Text(blocVM.original.titleName)
+                Text(blocVM.titleName)
                 Spacer()
                 Text(averageValue)
                     .padding(.horizontal, 10)

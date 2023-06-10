@@ -21,7 +21,6 @@ public struct TeachingUnitDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 
-                
                 ViewWithLineView(view: TeachingUnitView(teachingUnit: teachingUnitVM))
                     .padding(16)
                     .padding(.leading, 34)
@@ -65,6 +64,35 @@ public struct TeachingUnitDetailView: View {
                 }) {
                     Text("Modifier")
                 }
+                Button(action:{
+                    self.teachingUnitVM.onAdding()
+                    teachingUnitVM.addedItem?.onEditing()
+                }) {
+                    Text("Ajouter")
+                }
+            }
+            .sheet(isPresented: $teachingUnitVM.isAdding){
+                NavigationStack{
+                    SubjectView(subject: teachingUnitVM.addedItem!, fieldsEditable: true)
+                        .toolbar{
+                            ToolbarItem(id: "add", placement: .confirmationAction){
+                                Button(action: {
+                                    self.teachingUnitVM.addedItem?.onEdited()
+                                    self.teachingUnitVM.onAdded()
+                                }) {
+                                    Text("Ajouter")
+                                }
+                            }
+                            ToolbarItem(id: "cancel", placement: .cancellationAction){
+                                Button(action: {
+                                    self.teachingUnitVM.onAdded(isCancelled: true)
+                                }) {
+                                    Text("Annuler")
+                                }
+                            }
+                        }
+                        .navigationBarTitle("Ajout d'une matière")
+                }
             }
             .sheet(isPresented: $teachingUnitVM.isEditing) {
                 NavigationStack {
@@ -73,7 +101,6 @@ public struct TeachingUnitDetailView: View {
                             ToolbarItem(placement: .confirmationAction) {
                                 Button("Enregistrer") {
                                     teachingUnitVM.onEdited()
-                                    odinVM.update(withTeachingUnitVM: teachingUnitVM)
                                 }
                             }
                             ToolbarItem(placement: .cancellationAction) {

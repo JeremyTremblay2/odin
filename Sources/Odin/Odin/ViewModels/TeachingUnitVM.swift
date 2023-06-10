@@ -105,6 +105,10 @@ class TeachingUnitVM : ObservableObject, Identifiable, Equatable {
     @Published var isEditing: Bool = false
     private var copy: TeachingUnitVM { TeachingUnitVM(withTeachingUnit: self.model) }
     var editedCopy: TeachingUnitVM?
+        
+    @Published var isAdding: Bool = false
+    var addedItem: SubjectVM?
+    
     
     static func == (lhs: TeachingUnitVM, rhs: TeachingUnitVM) -> Bool {
         lhs.id == rhs.id
@@ -135,5 +139,21 @@ class TeachingUnitVM : ObservableObject, Identifiable, Equatable {
         }
         editedCopy = nil
         isEditing = false
+    }
+    
+    func onAdding() {
+        addedItem = SubjectVM()
+        isEditing = false
+        isAdding = true
+    }
+    
+    func onAdded(isCancelled cancel:Bool = false) {
+        if !cancel {
+            if let addedItem = addedItem {
+                self.subjectsVM.append(addedItem)
+            }
+        }
+        addedItem = nil
+        isAdding = false
     }
 }

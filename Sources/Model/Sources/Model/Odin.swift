@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Odin : Identifiable, Hashable, CustomStringConvertible {
+public struct Odin : Identifiable, Hashable, CustomStringConvertible, Codable {
     public let id: UUID
     public private (set) var blocs: [Bloc]
     public private (set) var teachingUnits: [TeachingUnit]

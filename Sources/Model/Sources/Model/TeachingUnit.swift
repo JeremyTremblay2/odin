@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TeachingUnit: Identifiable, Hashable, CustomStringConvertible {
+public struct TeachingUnit: Identifiable, Hashable, CustomStringConvertible, Codable {
     public let id: UUID
     public var titleName: String
     public var unitNumber: Int

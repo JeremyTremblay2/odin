@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		EC2476352A3323B60005B6A4 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2476342A3323B60005B6A4 /* ArrayExtensions.swift */; };
+		EC24763F2A34BA2E0005B6A4 /* JsonPersistenceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC24763D2A34BA2E0005B6A4 /* JsonPersistenceData.swift */; };
+		EC2476402A34BA2E0005B6A4 /* JsonPersistenceStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC24763E2A34BA2E0005B6A4 /* JsonPersistenceStrategy.swift */; };
+		EC2476422A34BBE20005B6A4 /* PersistenceStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2476412A34BBE20005B6A4 /* PersistenceStrategy.swift */; };
 		EC2CD6302A29E3BB00B1DD99 /* BaseVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CD62F2A29E3BB00B1DD99 /* BaseVM.swift */; };
 		EC4BA4CF2A20D63F00BF0EF7 /* SubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4BA4CE2A20D63F00BF0EF7 /* SubjectView.swift */; };
 		EC4BA4D72A20D98B00BF0EF7 /* SubjectVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4BA4D62A20D98B00BF0EF7 /* SubjectVM.swift */; };
@@ -52,6 +55,9 @@
 
 /* Begin PBXFileReference section */
 		EC2476342A3323B60005B6A4 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		EC24763D2A34BA2E0005B6A4 /* JsonPersistenceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonPersistenceData.swift; sourceTree = "<group>"; };
+		EC24763E2A34BA2E0005B6A4 /* JsonPersistenceStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonPersistenceStrategy.swift; sourceTree = "<group>"; };
+		EC2476412A34BBE20005B6A4 /* PersistenceStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceStrategy.swift; sourceTree = "<group>"; };
 		EC2CD62F2A29E3BB00B1DD99 /* BaseVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVM.swift; sourceTree = "<group>"; };
 		EC4BA4CE2A20D63F00BF0EF7 /* SubjectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectView.swift; sourceTree = "<group>"; };
 		EC4BA4D62A20D98B00BF0EF7 /* SubjectVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectVM.swift; sourceTree = "<group>"; };
@@ -111,6 +117,16 @@
 				EC2476342A3323B60005B6A4 /* ArrayExtensions.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		EC2476362A34A1880005B6A4 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				EC2476412A34BBE20005B6A4 /* PersistenceStrategy.swift */,
+				EC24763D2A34BA2E0005B6A4 /* JsonPersistenceData.swift */,
+				EC24763E2A34BA2E0005B6A4 /* JsonPersistenceStrategy.swift */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		EC4BA4D32A20D7D500BF0EF7 /* ViewModels */ = {
@@ -214,6 +230,7 @@
 		ECFF19812A1F9F5100120D8D /* Odin */ = {
 			isa = PBXGroup;
 			children = (
+				EC2476362A34A1880005B6A4 /* Persistence */,
 				EC4C9B802A1FFC4700C38C66 /* CustomControls */,
 				EC4BA4D32A20D7D500BF0EF7 /* ViewModels */,
 				EC9A7C972A1FB6270080C2E3 /* Views */,
@@ -388,6 +405,7 @@
 				EC4BA4D72A20D98B00BF0EF7 /* SubjectVM.swift in Sources */,
 				ECA414AC2A23960D0044FED8 /* ViewWithLineView.swift in Sources */,
 				ECFF19832A1F9F5100120D8D /* OdinApp.swift in Sources */,
+				EC2476402A34BA2E0005B6A4 /* JsonPersistenceStrategy.swift in Sources */,
 				ECA414962A2351BB0044FED8 /* BlocView.swift in Sources */,
 				EC2476352A3323B60005B6A4 /* ArrayExtensions.swift in Sources */,
 				ECA414982A2354DE0044FED8 /* OdinVM.swift in Sources */,
@@ -395,6 +413,8 @@
 				EC4C9B822A1FFC6300C38C66 /* CapsuleSliderView.swift in Sources */,
 				ECA414A02A236C180044FED8 /* TeachingUnitsView.swift in Sources */,
 				ECA414AA2A2393E30044FED8 /* TeachingUnitDetailView.swift in Sources */,
+				EC2476422A34BBE20005B6A4 /* PersistenceStrategy.swift in Sources */,
+				EC24763F2A34BA2E0005B6A4 /* JsonPersistenceData.swift in Sources */,
 				ECA4149C2A235DD50044FED8 /* CalculatorView.swift in Sources */,
 				ECA414AE2A23A2690044FED8 /* EditTeachingUnitView.swift in Sources */,
 				ECA4149A2A235DBD0044FED8 /* TeachingUnitView.swift in Sources */,

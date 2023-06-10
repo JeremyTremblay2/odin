@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Bloc : Identifiable, Hashable, CustomStringConvertible {
+public struct Bloc : Identifiable, Hashable, CustomStringConvertible, Codable {
     public let id: UUID
     public var titleName: String
     public var teachingUnits: [TeachingUnit]

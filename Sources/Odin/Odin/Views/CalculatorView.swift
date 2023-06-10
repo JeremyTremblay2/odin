@@ -11,6 +11,8 @@ import Model
 
 struct CalculatorView: View {
     @ObservedObject var odinVM: OdinVM
+    @Environment(\.scenePhase) private var scenePhase
+    let saveAction: ()->Void
     
     var body: some View {
         NavigationStack {
@@ -31,11 +33,14 @@ struct CalculatorView: View {
                 .navigationTitle("Calculette")
             }
         }
+        .onChange(of: scenePhase) { phase in
+            if phase == .inactive { saveAction() }
+        }
     }
 }
 
 struct CalculatorView_Previews: PreviewProvider {
     static var previews: some View {
-        CalculatorView(odinVM: OdinVM(withTeachingUnits: generateOdin().teachingUnits, withBlocs: generateOdin().blocs))
+        CalculatorView(odinVM: OdinVM(withPersistenceStrategy: JsonPersistenceStrategy()), saveAction: {})
     }
 }

@@ -40,6 +40,6 @@ public struct BlocsView: View {
 
 struct BlocsView_Previews: PreviewProvider {
     static var previews: some View {
-        BlocsView(odinVM: OdinVM(withTeachingUnits: generateOdin().teachingUnits, withBlocs: generateOdin().blocs))
+        BlocsView(odinVM: OdinVM(withPersistenceStrategy: JsonPersistenceStrategy()))
     }
 }

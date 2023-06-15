@@ -17,7 +17,7 @@ public func generateOdin() -> Odin {
     // Subjects for UE 2: Systèmes et Réseaux
     let subject5 = Subject(withName: "Internet des Objets", andCoeff: 141.00)
     let subject6 = Subject(withName: "Réseaux", andCoeff: 141.00, andAverage: 12.0)
-    let subject7 = Subject(withName: "Services Mobiles", andCoeff: 141.00)
+    let subject7 = Subject(withName: "Services Mobiles", andCoeff: 141.00, andAverage: 15.5)
     let subject8 = Subject(withName: "Système", andCoeff: 177.00, andAverage: 14.5)
     let teachingUnit2 = TeachingUnit(withName: "Systèmes et Réseaux", andUnitNumber: 2, andCoeff: 6.0, andSubjects: [subject5, subject6, subject7, subject8])
     
@@ -45,7 +45,7 @@ public func generateOdin() -> Odin {
     let teachingUnit5 = TeachingUnit(withName: "Technologies Mobiles 2", andUnitNumber: 5, andCoeff: 9.0, andSubjects: [subject17, subject18, subject19, subject20, subject21, subject22])
     
     // Subjects for UE 6: Projet
-    let subject23 = Subject(withName: "Projet", andCoeff: 900.00, andAverage: 17.69)
+    let subject23 = Subject(withName: "Projet", andCoeff: 900.00, andAverage: 18.69)
     let teachingUnit6 = TeachingUnit(withName: "Projet", andUnitNumber: 6, andCoeff: 9.0, andSubjects: [subject23])
     
     // Subjects for UE 7: Stage

@@ -38,28 +38,43 @@ public struct EditTeachingUnitView: View {
                     .padding(.top, 20)
                     .padding(.leading, 16)
                     
-                    ForEach(teachingUnitVM.subjectsVM) { subject in
-                        HStack(alignment: .center) {
-                            Button(action: {
-                                teachingUnitVM.removeSubject(toBeRemoved: subject)
-                            }) {
-                                Image(systemName: "trash.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 16)
-                                    .foregroundColor(.blue)
+                    List {
+                        ForEach(teachingUnitVM.subjectsVM) { subject in
+                            HStack(alignment: .center) {
+                                Button(action: {
+                                    subject.average = nil
+                                }) {
+                                    VStack(alignment: .center) {
+                                        Image(systemName: "multiply.circle.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 24)
+                                            .foregroundColor(.blue)
+                                    }
+                                }
+                                .padding(.leading, 16)
+                                .padding(.trailing, 10)
                                 
+                                SubjectView(subject: subject, fieldsEditable: true)
+                                    .padding(.bottom, 16)
+                                    .padding(.top, -10)
                             }
-                            .padding(.leading, 16)
-                            .padding(.trailing, 24)
-                            
-                            ViewWithLineView(view: SubjectView(subject: subject, fieldsEditable: true))
+                            .swipeActions(edge:.trailing){
+                                Button(role: .destructive) {
+                                    self.teachingUnitVM.onDeleted(subject)
+                                } label: {
+                                    Label("Supprimer", systemImage: "trash")
+                                }
+                            }
+                            .onAppear() {
+                                subject.onEditing()
+                            }
+                            .padding(.top, 40)
+                            .listRowInsets(EdgeInsets())
                         }
-                        .onAppear() {
-                            subject.onEditing()
-                        }
-                        .padding(.top, 40)
                     }
+                    .padding(0)
+                    .listStyle(PlainListStyle())
                     
                     Spacer()
                     HStack(alignment: .center) {

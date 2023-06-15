@@ -171,6 +171,16 @@ class TeachingUnitVM : ObservableObject, Identifiable, Hashable {
         isAdding = false
     }
     
+    func onDeleted(_ subject: SubjectVM, isCancelled cancel: Bool = false) {
+        if !cancel {
+            if self.subjectsVM.contains(subject) {
+                self.subjectsVM.filter { $0 == subject }
+                                .forEach { $0.unsubscribe(with: self) }
+                self.subjectsVM.removeAll(where: {$0 == subject})
+            }
+        }
+    }
+    
     func onNotifyChanged(source: SubjectVM) {
         if let index = self.model.subjects.firstIndex(where: { $0.id == source.model.id }) {
             self.model.subjects[index] = source.model

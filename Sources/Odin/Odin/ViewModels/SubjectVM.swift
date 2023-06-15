@@ -28,7 +28,7 @@ import Model
     }
 }*/
 
-class SubjectVM : ObservableObject, Identifiable, Equatable {
+class SubjectVM : ObservableObject, Identifiable, Hashable {
     init() {}
     
     init(withSubject subject: Subject) {
@@ -46,6 +46,7 @@ class SubjectVM : ObservableObject, Identifiable, Equatable {
             if self.model.average != self.average {
                 self.average = self.model.average
             }
+            notifyChanged()
         }
     }
     
@@ -80,10 +81,14 @@ class SubjectVM : ObservableObject, Identifiable, Equatable {
     var editedCopy: SubjectVM?
     
     static func == (lhs: SubjectVM, rhs: SubjectVM) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id && lhs.average == rhs.average && lhs.titleName == rhs.titleName && lhs.coefficient == rhs.coefficient
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 
-    func onEditing(){
+    func onEditing() {
         editedCopy = self.copy
         isEditing = true
     }
@@ -96,5 +101,21 @@ class SubjectVM : ObservableObject, Identifiable, Equatable {
         }
         editedCopy = nil
         isEditing = false
+    }
+    
+    private var updateFuncs: [AnyHashable:(SubjectVM) -> ()] = [:]
+        
+    public func subscribe(with obj: AnyHashable, and function: @escaping (SubjectVM) -> ()) {
+        updateFuncs[obj] = function
+    }
+    
+    public func unsubscribe(with obj: AnyHashable) {
+        updateFuncs.removeValue(forKey: obj)
+    }
+    
+    private func notifyChanged() {
+        for f in updateFuncs.values {
+            f(self)
+        }
     }
 }

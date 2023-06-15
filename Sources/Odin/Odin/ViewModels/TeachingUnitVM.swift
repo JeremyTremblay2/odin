@@ -43,7 +43,7 @@ import Model
     }
 }*/
 
-class TeachingUnitVM : ObservableObject, Identifiable, Equatable {
+class TeachingUnitVM : ObservableObject, Identifiable, Hashable {
     init() {}
     
     init(withTeachingUnit teachingUnit: TeachingUnit) {
@@ -51,6 +51,11 @@ class TeachingUnitVM : ObservableObject, Identifiable, Equatable {
     }
     
     @Published var model: TeachingUnit = TeachingUnit(withId: UUID(), andName: "Unité d'enseignement", andUnitNumber: 5, andCoeff: 1) {
+        willSet(newValue) {
+            if !self.subjectsVM.map({ $0.model }).compare(to: newValue.subjects) {
+                self.subjectsVM.forEach { $0.unsubscribe(with: self) }
+            }
+        }
         didSet {
             if self.model.titleName != self.titleName {
                 self.titleName = self.model.titleName
@@ -63,6 +68,9 @@ class TeachingUnitVM : ObservableObject, Identifiable, Equatable {
             }
             if !self.model.subjects.compare(to: self.subjectsVM.map({ $0.model })) {
                 self.subjectsVM = self.model.subjects.map({ SubjectVM(withSubject: $0) })
+                self.subjectsVM.forEach { vm in
+                    vm.subscribe(with: self, and: onNotifyChanged(source:))
+                }
             }
         }
     }
@@ -110,24 +118,30 @@ class TeachingUnitVM : ObservableObject, Identifiable, Equatable {
     var addedItem: SubjectVM?
     
     
-    static func == (lhs: TeachingUnitVM, rhs: TeachingUnitVM) -> Bool {
-        lhs.id == rhs.id
+    public static func == (lhs: TeachingUnitVM, rhs: TeachingUnitVM) -> Bool {
+        lhs.id == rhs.id && lhs.model.average == rhs.model.average
+        }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(titleName)
+        
     }
     
     func addSubject() {
-        let subject = Subject(withName: "Matière", andCoeff: Float(model.unitNumber + 1))
-        model.subjects.append(subject)
+        let subject = SubjectVM()
+        subjectsVM.append(subject)
+        subject.subscribe(with: self, and: onNotifyChanged(source:))
     }
     
     func removeSubject(toBeRemoved subject: SubjectVM) {
-        guard let index = model.subjects.firstIndex(of: subject.model) else {
-            return
+        if self.subjectsVM.contains(subject) {
+            self.subjectsVM.removeAll(where: { $0 == subject })
         }
-        model.subjects.remove(at: index)
     }
     
-    func onEditing(){
+    func onEditing() {
         editedCopy = self.copy
+        isAdding = false
         isEditing = true
     }
         
@@ -147,13 +161,21 @@ class TeachingUnitVM : ObservableObject, Identifiable, Equatable {
         isAdding = true
     }
     
-    func onAdded(isCancelled cancel:Bool = false) {
+    func onAdded(isCancelled cancel: Bool = false) {
         if !cancel {
             if let addedItem = addedItem {
                 self.subjectsVM.append(addedItem)
+                addedItem.subscribe(with: self, and: onNotifyChanged(source:))
             }
         }
         addedItem = nil
         isAdding = false
+    }
+    
+    func onNotifyChanged(source: SubjectVM) {
+        if let index = self.model.subjects.firstIndex(where: { $0.id == source.model.id }) {
+            self.model.subjects[index] = source.model
+        }
+        self.objectWillChange.send()
     }
 }

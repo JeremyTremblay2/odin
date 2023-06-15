@@ -32,7 +32,8 @@ public struct Subject : Identifiable, Hashable, CustomStringConvertible, Codable
     }
     
     public static func == (lhs: Subject, rhs: Subject) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.id == rhs.id && lhs.average == rhs.average
+            && lhs.titleName == rhs.titleName && lhs.coefficient == rhs.coefficient
     }
     
     public func hash(into hasher: inout Hasher) {

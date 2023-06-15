@@ -43,7 +43,7 @@ public struct TeachingUnitDetailView: View {
                                     .padding(.trailing, 24)
                             }
                             else {
-                                Image(systemName: "flame")
+                                Image(systemName: "lock.fill")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 16)

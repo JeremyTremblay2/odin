@@ -26,8 +26,8 @@ public struct EditTeachingUnitView: View {
                     
                     
                     ViewWithLineView(view: TeachingUnitView(teachingUnit: teachingUnitVM))
-                     .padding(16)
-                     .padding(.leading, 34)
+                        .padding(16)
+                        .padding(.leading, 34)
                     
                     HStack(spacing: 0) {
                         Image(systemName: "multiply.circle.fill")
@@ -53,7 +53,7 @@ public struct EditTeachingUnitView: View {
                             .padding(.leading, 16)
                             .padding(.trailing, 24)
                             
-                            ViewWithLineView(view: SubjectView(subject: subject.editedCopy ?? subject, fieldsEditable: true))
+                            ViewWithLineView(view: SubjectView(subject: subject, fieldsEditable: true))
                         }
                         .onAppear() {
                             subject.onEditing()
@@ -76,6 +76,9 @@ public struct EditTeachingUnitView: View {
                 .frame(minHeight: geometry.size.height)
             }
             .frame(width: geometry.size.width)
+        }
+        .onAppear() { // used to allow the user to edit the other view of the teaching unit.
+            teachingUnitVM.onEditing()
         }
     }
 }

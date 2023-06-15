@@ -50,7 +50,7 @@ class SubjectVM : ObservableObject, Identifiable, Hashable {
         }
     }
     
-    @Published var titleName: String = "" {
+    @Published var titleName: String = "Matière" {
         didSet {
             if self.model.titleName != self.titleName {
                 self.model.titleName = self.titleName
@@ -58,7 +58,7 @@ class SubjectVM : ObservableObject, Identifiable, Hashable {
         }
     }
     
-    @Published var coefficient: Float = 0 {
+    @Published var coefficient: Float = 1 {
         didSet {
             if self.model.coefficient != self.coefficient {
                 self.model.coefficient = self.coefficient
@@ -77,8 +77,6 @@ class SubjectVM : ObservableObject, Identifiable, Hashable {
     public var id: UUID { model.id }
     
     @Published var isEditing: Bool = false
-    private var copy: SubjectVM { SubjectVM(withSubject: self.model) }
-    var editedCopy: SubjectVM?
     
     static func == (lhs: SubjectVM, rhs: SubjectVM) -> Bool {
         lhs.id == rhs.id && lhs.average == rhs.average && lhs.titleName == rhs.titleName && lhs.coefficient == rhs.coefficient
@@ -89,17 +87,10 @@ class SubjectVM : ObservableObject, Identifiable, Hashable {
     }
 
     func onEditing() {
-        editedCopy = self.copy
         isEditing = true
     }
         
     func onEdited(isCancelled cancel: Bool = false) {
-        if !cancel {
-            if let editedCopy = editedCopy {
-                self.model = editedCopy.model
-            }
-        }
-        editedCopy = nil
         isEditing = false
     }
     

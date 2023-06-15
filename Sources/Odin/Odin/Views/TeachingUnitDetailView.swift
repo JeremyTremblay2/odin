@@ -55,6 +55,9 @@ public struct TeachingUnitDetailView: View {
                         ViewWithLineView(view : SubjectView(subject: subject))
                     }
                     .padding(.top, 40)
+                    .onDisappear() {
+                        subject.onEdited(isCancelled: true)
+                    }
                 }
             }
             .navigationTitle(navigationTitle)

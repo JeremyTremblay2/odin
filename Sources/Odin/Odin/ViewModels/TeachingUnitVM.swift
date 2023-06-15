@@ -72,6 +72,7 @@ class TeachingUnitVM : ObservableObject, Identifiable, Hashable {
                     vm.subscribe(with: self, and: onNotifyChanged(source:))
                 }
             }
+            self.notifyChanged()
         }
     }
     
@@ -117,14 +118,12 @@ class TeachingUnitVM : ObservableObject, Identifiable, Hashable {
     @Published var isAdding: Bool = false
     var addedItem: SubjectVM?
     
-    
     public static func == (lhs: TeachingUnitVM, rhs: TeachingUnitVM) -> Bool {
         lhs.id == rhs.id && lhs.model.average == rhs.model.average
-        }
+    }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(titleName)
-        
     }
     
     func addSubject() {
@@ -177,5 +176,21 @@ class TeachingUnitVM : ObservableObject, Identifiable, Hashable {
             self.model.subjects[index] = source.model
         }
         self.objectWillChange.send()
+    }
+    
+    private var updateFuncs: [AnyHashable:(TeachingUnitVM) -> ()] = [:]
+        
+    public func subscribe(with obj: AnyHashable, and function: @escaping (TeachingUnitVM) -> ()) {
+        updateFuncs[obj] = function
+    }
+    
+    public func unsubscribe(with obj: AnyHashable) {
+        updateFuncs.removeValue(forKey: obj)
+    }
+    
+    private func notifyChanged() {
+        for f in updateFuncs.values {
+            f(self)
+        }
     }
 }

@@ -46,6 +46,8 @@ class BlocVM : ObservableObject, Identifiable, Equatable {
         self.model = bloc
     }
     
+    public var id: UUID { model.id }
+    
     @Published var model: Bloc = Bloc(withId: UUID(), andTitle: "") {
         didSet {
             if self.model.titleName != self.titleName {
@@ -76,5 +78,12 @@ class BlocVM : ObservableObject, Identifiable, Equatable {
     
     public static func == (lhs: BlocVM, rhs: BlocVM) -> Bool {
         return lhs.id == rhs.id
+    }
+    
+    public func updateBloc(withTeachingUnitVM teachingUnitVM: TeachingUnitVM) {
+        if let index = teachingUnitsVM.firstIndex(where: { $0.id == teachingUnitVM.model.id }) {
+            teachingUnitsVM[index] = teachingUnitVM
+            model.teachingUnits[index] = teachingUnitVM.model
+        }
     }
 }

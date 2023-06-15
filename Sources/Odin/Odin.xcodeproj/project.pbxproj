@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC0228BC2A3BB7E600C563C9 /* StubPersistenceStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0228BB2A3BB7E600C563C9 /* StubPersistenceStrategy.swift */; };
 		EC2476352A3323B60005B6A4 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2476342A3323B60005B6A4 /* ArrayExtensions.swift */; };
 		EC24763F2A34BA2E0005B6A4 /* JsonPersistenceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC24763D2A34BA2E0005B6A4 /* JsonPersistenceData.swift */; };
 		EC2476402A34BA2E0005B6A4 /* JsonPersistenceStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC24763E2A34BA2E0005B6A4 /* JsonPersistenceStrategy.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC0228BB2A3BB7E600C563C9 /* StubPersistenceStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubPersistenceStrategy.swift; sourceTree = "<group>"; };
 		EC2476342A3323B60005B6A4 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		EC24763D2A34BA2E0005B6A4 /* JsonPersistenceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonPersistenceData.swift; sourceTree = "<group>"; };
 		EC24763E2A34BA2E0005B6A4 /* JsonPersistenceStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonPersistenceStrategy.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				EC2476412A34BBE20005B6A4 /* PersistenceStrategy.swift */,
 				EC24763D2A34BA2E0005B6A4 /* JsonPersistenceData.swift */,
 				EC24763E2A34BA2E0005B6A4 /* JsonPersistenceStrategy.swift */,
+				EC0228BB2A3BB7E600C563C9 /* StubPersistenceStrategy.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				ECA414AE2A23A2690044FED8 /* EditTeachingUnitView.swift in Sources */,
 				ECA4149A2A235DBD0044FED8 /* TeachingUnitView.swift in Sources */,
 				EC4BA4CF2A20D63F00BF0EF7 /* SubjectView.swift in Sources */,
+				EC0228BC2A3BB7E600C563C9 /* StubPersistenceStrategy.swift in Sources */,
 				EC4BA4DC2A20DFB400BF0EF7 /* TeachingUnitVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

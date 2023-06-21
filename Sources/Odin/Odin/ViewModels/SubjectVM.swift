@@ -28,7 +28,7 @@ import Model
     }
 }*/
 
-class SubjectVM : ObservableObject, Identifiable, Equatable {
+class SubjectVM : ObservableObject, Identifiable, Hashable {
     init() {}
     
     init(withSubject subject: Subject) {
@@ -46,10 +46,11 @@ class SubjectVM : ObservableObject, Identifiable, Equatable {
             if self.model.average != self.average {
                 self.average = self.model.average
             }
+            notifyChanged()
         }
     }
     
-    @Published var titleName: String = "" {
+    @Published var titleName: String = "Matière" {
         didSet {
             if self.model.titleName != self.titleName {
                 self.model.titleName = self.titleName
@@ -57,7 +58,7 @@ class SubjectVM : ObservableObject, Identifiable, Equatable {
         }
     }
     
-    @Published var coefficient: Float = 0 {
+    @Published var coefficient: Float = 1 {
         didSet {
             if self.model.coefficient != self.coefficient {
                 self.model.coefficient = self.coefficient
@@ -76,25 +77,36 @@ class SubjectVM : ObservableObject, Identifiable, Equatable {
     public var id: UUID { model.id }
     
     @Published var isEditing: Bool = false
-    private var copy: SubjectVM { SubjectVM(withSubject: self.model) }
-    var editedCopy: SubjectVM?
     
     static func == (lhs: SubjectVM, rhs: SubjectVM) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id && lhs.average == rhs.average && lhs.titleName == rhs.titleName && lhs.coefficient == rhs.coefficient
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 
-    func onEditing(){
-        editedCopy = self.copy
+    func onEditing() {
         isEditing = true
     }
         
     func onEdited(isCancelled cancel: Bool = false) {
-        if !cancel {
-            if let editedCopy = editedCopy {
-                self.model = editedCopy.model
-            }
-        }
-        editedCopy = nil
         isEditing = false
+    }
+    
+    private var updateFuncs: [AnyHashable:(SubjectVM) -> ()] = [:]
+        
+    public func subscribe(with obj: AnyHashable, and function: @escaping (SubjectVM) -> ()) {
+        updateFuncs[obj] = function
+    }
+    
+    public func unsubscribe(with obj: AnyHashable) {
+        updateFuncs.removeValue(forKey: obj)
+    }
+    
+    private func notifyChanged() {
+        for f in updateFuncs.values {
+            f(self)
+        }
     }
 }

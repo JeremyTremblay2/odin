@@ -13,4 +13,10 @@ public class BaseVM {
     init(callbacks: [ (BaseVM) -> Void]) {
         self.callbacks = callbacks
     }
+    
+    public func notify() {
+        for callback in callbacks {
+            callback(self)
+        }
+    }
 }

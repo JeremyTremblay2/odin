@@ -37,13 +37,13 @@ public struct TeachingUnitDetailView: View {
                                 Image(systemName: "lock.open.fill")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 16)
+                                    .frame(width: 24)
                                     .foregroundColor(.blue)
                                     .padding(.leading, 16)
                                     .padding(.trailing, 24)
                             }
                             else {
-                                Image(systemName: "flame")
+                                Image(systemName: "lock.fill")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 16)
@@ -52,9 +52,12 @@ public struct TeachingUnitDetailView: View {
                                     .padding(.trailing, 24)
                             }
                         }
-                        ViewWithLineView(view : SubjectView(subject: subject.editedCopy ?? subject))
+                        ViewWithLineView(view : SubjectView(subject: subject))
                     }
                     .padding(.top, 40)
+                    .onDisappear() {
+                        subject.onEdited(isCancelled: true)
+                    }
                 }
             }
             .navigationTitle(navigationTitle)

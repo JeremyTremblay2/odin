@@ -38,16 +38,17 @@ public class JsonPersistenceStrategy : PersistenceStrategy {
         }
         
         var persistenceData: PersistenceData
+        let odin = generateOdin()
         
         do {
             persistenceData = try await task.value
         }
         catch {
-            persistenceData = PersistenceData(teachingUnits: generateOdin().teachingUnits, blocs: generateOdin().blocs)
+            persistenceData = PersistenceData(teachingUnits: odin.teachingUnits, blocs: odin.blocs)
         }
         
         if persistenceData.blocs.isEmpty || persistenceData.teachingUnits.isEmpty {
-            persistenceData = PersistenceData(teachingUnits: generateOdin().teachingUnits, blocs: generateOdin().blocs)
+            persistenceData = PersistenceData(teachingUnits: odin.teachingUnits, blocs: odin.blocs)
         }
         return (persistenceData.teachingUnits, persistenceData.blocs)
     }

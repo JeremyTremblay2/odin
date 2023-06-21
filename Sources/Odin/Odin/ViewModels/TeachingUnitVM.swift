@@ -51,11 +51,11 @@ class TeachingUnitVM : ObservableObject, Identifiable, Hashable {
     }
     
     @Published var model: TeachingUnit = TeachingUnit(withId: UUID(), andName: "Unité d'enseignement", andUnitNumber: 5, andCoeff: 1) {
-        willSet(newValue) {
-            if !self.subjectsVM.map({ $0.model }).compare(to: newValue.subjects) {
-                self.subjectsVM.forEach { $0.unsubscribe(with: self) }
-            }
-        }
+//        willSet(newValue) {
+//            if !self.subjectsVM.map({ $0.model }).compare(to: newValue.subjects) {
+//                self.subjectsVM.forEach { $0.unsubscribe(with: self) }
+//            }
+//        }
         didSet {
             if self.model.titleName != self.titleName {
                 self.titleName = self.model.titleName
@@ -67,6 +67,9 @@ class TeachingUnitVM : ObservableObject, Identifiable, Hashable {
                 self.coefficient = self.model.coefficient
             }
             if !self.model.subjects.compare(to: self.subjectsVM.map({ $0.model })) {
+                self.subjectsVM.forEach { vm in
+                    vm.unsubscribe(with: self)
+                }
                 self.subjectsVM = self.model.subjects.map({ SubjectVM(withSubject: $0) })
                 self.subjectsVM.forEach { vm in
                     vm.subscribe(with: self, and: onNotifyChanged(source:))
@@ -119,11 +122,11 @@ class TeachingUnitVM : ObservableObject, Identifiable, Hashable {
     var addedItem: SubjectVM?
     
     public static func == (lhs: TeachingUnitVM, rhs: TeachingUnitVM) -> Bool {
-        lhs.id == rhs.id && lhs.model.average == rhs.model.average
+        lhs.id == rhs.id
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(titleName)
+        hasher.combine(id)
     }
     
     func addSubject() {

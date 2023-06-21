@@ -1,4 +1,4 @@
-<h1 align="center">🎙️ SwiftCast 🎙️</h1>
+<h1 align="center">🏆 Odin 📝</h1>
 
 The goal of Odin is to propose an iOS mobile application allowing the user to simulate average notes based on the subjects and teaching units.
 
@@ -17,11 +17,6 @@ Here you can see the actual visual of the application
     <img src="./Documentation/Images/Sketches/calculator_view.png" height="400"/>
     <img src="./Documentation/Images/Sketches/master_view.png" height="400"/>
     <img src="./Documentation/Images/Sketches/master_with_edition_view.png" height="400"/>
-</p>
-<p align="center">
-    <img src="./Documentation/doc_images/le_code_a_change_light.png" height="400"/>
-    <img src="./Documentation/doc_images/moment_meurice_light.png" height="400"/>
-    <img src="./Documentation/doc_images/la_science_cqfd_light.png" height="400"/>
 </p>
 <p align="center">
     <img src="./Documentation/Images/Sketches/detail_edition_view.png" height="400"/>

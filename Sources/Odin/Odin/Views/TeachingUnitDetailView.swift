@@ -33,9 +33,6 @@ public struct TeachingUnitDetailView: View {
                         ViewWithLockView(subjectVM: $subject)
                     }
                     .padding(.top, 40)
-                    .onDisappear() {
-                        subject.onEdited(isCancelled: true)
-                    }
                 }
             }
             .navigationTitle(navigationTitle)

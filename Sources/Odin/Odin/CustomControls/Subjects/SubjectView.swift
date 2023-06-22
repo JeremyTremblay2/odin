@@ -25,6 +25,12 @@ public struct SubjectView: View {
                     .disabled(areFielsEditables)
                 Spacer()
                 TextField("Coeff", value: $subject.coefficient, formatter: NumberFormatter())
+                    .keyboardType(.numberPad)
+                    .onChange(of: subject.coefficient) { newValue in
+                        if newValue < 0.0 {
+                            subject.coefficient = 0.0
+                        }
+                    }
                     .disabled(areFielsEditables)
                     .frame(width: 36)
             }

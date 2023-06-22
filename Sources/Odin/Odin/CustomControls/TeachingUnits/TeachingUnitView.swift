@@ -21,6 +21,11 @@ public struct TeachingUnitView: View {
                     .disabled(!teachingUnit.isEditing)
                 Spacer()
                 TextField("Coeff", value: $teachingUnit.coefficient, formatter: NumberFormatter())
+                    .onChange(of: teachingUnit.coefficient) { newValue in
+                        if newValue < 0.0 {
+                            teachingUnit.coefficient = 0.0
+                        }
+                    }
                     .disabled(!teachingUnit.isEditing)
                     .frame(width: 36)
             }

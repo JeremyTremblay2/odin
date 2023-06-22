@@ -30,34 +30,9 @@ public struct TeachingUnitDetailView: View {
                 
                 ForEach($teachingUnitVM.subjectsVM) { $subject in
                     HStack(alignment: .center) {
-                        Button(action: {
-                            subject.isEditing ? subject.onEdited() : subject.onEditing()
-                        }) {
-                            if subject.isEditing {
-                                Image(systemName: "lock.open.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24)
-                                    .foregroundColor(.blue)
-                                    .padding(.leading, 16)
-                                    .padding(.trailing, 24)
-                            }
-                            else {
-                                Image(systemName: "lock.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 16)
-                                    .foregroundColor(.blue)
-                                    .padding(.leading, 16)
-                                    .padding(.trailing, 24)
-                            }
-                        }
-                        ViewWithLineView(view : SubjectView(subject: subject))
+                        ViewWithLockView(subjectVM: subject)
                     }
                     .padding(.top, 40)
-                    .onDisappear() {
-                        subject.onEdited(isCancelled: true)
-                    }
                 }
             }
             .navigationTitle(navigationTitle)

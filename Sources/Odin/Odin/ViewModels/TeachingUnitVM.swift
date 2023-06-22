@@ -67,9 +67,9 @@ class TeachingUnitVM : ObservableObject, Identifiable, Hashable {
                 self.coefficient = self.model.coefficient
             }
             if !self.model.subjects.compare(to: self.subjectsVM.map({ $0.model })) {
-                self.subjectsVM.forEach { vm in
-                    vm.unsubscribe(with: self)
-                }
+//                self.subjectsVM.forEach { vm in
+//                    vm.unsubscribe(with: self)
+//                }
                 self.subjectsVM = self.model.subjects.map({ SubjectVM(withSubject: $0) })
                 self.subjectsVM.forEach { vm in
                     vm.subscribe(with: self, and: onNotifyChanged(source:))

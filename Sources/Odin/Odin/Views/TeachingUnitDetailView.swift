@@ -30,7 +30,7 @@ public struct TeachingUnitDetailView: View {
                 
                 ForEach($teachingUnitVM.subjectsVM) { $subject in
                     HStack(alignment: .center) {
-                        ViewWithLockView(subjectVM: $subject)
+                        ViewWithLockView(subjectVM: subject)
                     }
                     .padding(.top, 40)
                 }

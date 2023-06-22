@@ -10,37 +10,41 @@ import SwiftUI
 import Model
 
 public struct ViewWithLockView: View {
-    @Binding var subjectVM: SubjectVM
+    @ObservedObject var subjectVM: SubjectVM
+    
+    var image: some View {
+        if subjectVM.isEditing {
+            return Image(systemName: "lock.open.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 24)
+                .foregroundColor(.blue)
+                .padding(.leading, 16)
+                .padding(.trailing, 24)
+        }
+        else {
+            return Image(systemName: "lock.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 16)
+                .foregroundColor(.blue)
+                .padding(.leading, 16)
+                .padding(.trailing, 24)
+        }
+    }
     
     public var body: some View {
         Button(action: {
             subjectVM.isEditing ? subjectVM.onEdited() : subjectVM.onEditing()
         }) {
-            if subjectVM.isEditing {
-                Image(systemName: "lock.open.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24)
-                    .foregroundColor(.blue)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 24)
-            }
-            else {
-                Image(systemName: "lock.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 16)
-                    .foregroundColor(.blue)
-                    .padding(.leading, 16)
-                    .padding(.trailing, 24)
-            }
+            image
         }
         ViewWithLineView(view : SubjectView(subject: subjectVM))
     }
 }
 
-struct ViewWithLockView_Previews: PreviewProvider {
-    static var previews: some View {
-        ViewWithLockView(subjectVM: .constant(SubjectVM(withSubject: generateOdin().teachingUnits.first!.subjects.first!)))
-    }
-}
+//struct ViewWithLockView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ViewWithLockView(subjectVM: SubjectVM(withSubject: generateOdin().teachingUnits.first!.subjects.first!))
+//    }
+//}
